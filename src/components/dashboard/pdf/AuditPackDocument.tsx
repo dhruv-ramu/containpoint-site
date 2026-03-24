@@ -6,6 +6,7 @@ import {
   StyleSheet,
   pdf,
 } from "@react-pdf/renderer";
+import { generatedDateLong } from "@/lib/dateHelpers";
 import {
   facility,
   assets,
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
 });
 
 export function AuditPackDocument() {
-  const generatedDate = "March 23, 2026";
+  const generatedDate = generatedDateLong();
 
   return (
     <Document>

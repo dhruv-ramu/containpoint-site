@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import { CheckCircle, AlertCircle, Clock } from "lucide-react";
+import { fmtShort, daysAgo } from "@/lib/dateHelpers";
 
 export function DashboardMock() {
   const assets = [
-    { id: "T-001", name: "Diesel Tank A", status: "compliant", lastInspection: "Mar 15" },
-    { id: "T-002", name: "Aboveground Storage", status: "action-required", lastInspection: "Mar 10" },
-    { id: "T-003", name: "Generator Tank", status: "compliant", lastInspection: "Mar 18" },
-    { id: "T-004", name: "Hydraulic Reservoir", status: "scheduled", lastInspection: "Mar 22" },
+    { id: "T-001", name: "Diesel Tank A", status: "compliant", lastInspection: fmtShort(daysAgo(8)) },
+    { id: "T-002", name: "Aboveground Storage", status: "action-required", lastInspection: fmtShort(daysAgo(13)) },
+    { id: "T-003", name: "Generator Tank", status: "compliant", lastInspection: fmtShort(daysAgo(5)) },
+    { id: "T-004", name: "Hydraulic Reservoir", status: "scheduled", lastInspection: fmtShort(daysAgo(1)) },
   ];
 
   return (

@@ -10,6 +10,7 @@ import {
   FileDown,
   ChevronRight,
 } from "lucide-react";
+import { generatedDateLong } from "@/lib/dateHelpers";
 import {
   facility,
   evidenceReadiness,
@@ -274,7 +275,7 @@ export function HowItWorksSection() {
                   <div className="rounded-lg border border-due-soon/30 bg-due-soon/5 p-4">
                     <p className="text-[11px] font-medium text-slate uppercase tracking-wider mb-1">Open finding</p>
                     <p className="font-medium text-charcoal">Secondary containment crack at Berm B</p>
-                    <p className="text-sm text-slate mt-1">Medium severity · Logged Mar 21</p>
+                    <p className="text-sm text-slate mt-1">Medium severity · Logged {correctiveActions.find((c) => c.id === "CA-014")?.createdDate ?? ""}</p>
                     <p className="text-xs text-steel mt-0.5">Linked to INSP-2389 · CA-014 created</p>
                   </div>
                   <div>
@@ -292,7 +293,7 @@ export function HowItWorksSection() {
                     <p className="text-[11px] font-medium text-slate uppercase tracking-wider mb-2">Source inspection</p>
                     <div className="rounded-lg border border-border/50 bg-surface/40 p-3 text-sm">
                       <p className="font-medium text-charcoal">INSP-2389 — AST-02 Fuel Storage Tank</p>
-                      <p className="text-slate text-xs mt-0.5">Monthly visual · Failed Mar 21</p>
+                      <p className="text-slate text-xs mt-0.5">Monthly visual · Failed {inspections.find((i) => i.id === "INSP-2389")?.date ?? ""}</p>
                     </div>
                   </div>
                 </div>
@@ -373,7 +374,7 @@ export function HowItWorksSection() {
                 <div className="space-y-4">
                   <div className="rounded-lg border-2 border-compliant/30 bg-compliant/5 p-4 text-center">
                     <p className="text-sm font-semibold text-compliant">Ready for inspector review</p>
-                    <p className="text-xs text-slate mt-1">Generated Mar 23, 2026</p>
+                    <p className="text-xs text-slate mt-1">Generated {generatedDateLong()}</p>
                     <p className="text-xs text-slate">0 missing items</p>
                   </div>
                   <div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { fmtShort, daysAgo } from "@/lib/dateHelpers";
 import { StatusBadge } from "../ui/StatusBadge";
 import { assets, assetDetails } from "@/data/sampleDashboardData";
 
@@ -125,7 +126,11 @@ export function DashboardAssets() {
                 <div>
                   <h4 className="text-[11px] font-semibold text-slate uppercase tracking-wider mb-2">Last 3 Inspections</h4>
                   <div className="space-y-2">
-                    {["Mar 15 — Monthly Visual", "Feb 15 — Monthly Visual", "Jan 15 — Monthly Visual"].map((item, i) => (
+                    {[
+                      `${fmtShort(daysAgo(8))} — Monthly Visual`,
+                      `${fmtShort(daysAgo(36))} — Monthly Visual`,
+                      `${fmtShort(daysAgo(67))} — Monthly Visual`,
+                    ].map((item, i) => (
                       <div key={i} className="flex justify-between items-center py-2 px-3 rounded-lg bg-surface/40">
                         <span className="text-sm text-charcoal">{item}</span>
                         <StatusBadge status="Pass" size="sm" />

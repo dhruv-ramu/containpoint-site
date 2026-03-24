@@ -2,13 +2,18 @@ import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { StatusBadge } from "../ui/StatusBadge";
 import { trainingRecords } from "@/data/sampleDashboardData";
+import { MONTHS } from "@/lib/dateHelpers";
 
-const completionData = [
-  { month: "Jan", completed: 2 },
-  { month: "Feb", completed: 1 },
-  { month: "Mar", completed: 0 },
-  { month: "Apr", completed: 1 },
-];
+const completionData = (() => {
+  const now = new Date();
+  return [3, 2, 1, 0].map((i) => {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    return {
+      month: MONTHS[d.getMonth()],
+      completed: i === 0 ? 0 : i === 1 ? 1 : i === 2 ? 2 : 1,
+    };
+  });
+})();
 
 const CHART_COLOR = "#5F7C99";
 const currentCount = trainingRecords.filter((r) => r.status === "Current").length;
