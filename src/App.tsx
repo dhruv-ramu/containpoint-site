@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ProblemSection } from "@/components/sections/ProblemSection";
@@ -17,6 +18,7 @@ import { Footer } from "@/components/sections/Footer";
 function App() {
   return (
     <div className="min-h-screen">
+      <Analytics />
       <Navigation />
       <main>
         <HeroSection />
