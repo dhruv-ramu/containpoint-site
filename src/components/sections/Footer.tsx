@@ -39,6 +39,14 @@ export function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/blog"
+                  className="text-slate hover:text-charcoal transition-colors"
+                >
+                  Articles
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
