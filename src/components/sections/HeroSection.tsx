@@ -34,7 +34,7 @@ export function HeroSection() {
                 <a href="#book-demo">Book Demo</a>
               </Button>
               <Button variant="secondary" size="lg" asChild>
-                <a href="#sample-audit">See Sample Audit Pack</a>
+                <a href="#sample-audit">Explore Sample Dashboard</a>
               </Button>
             </motion.div>
           </div>

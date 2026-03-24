@@ -11,6 +11,9 @@
   --color-steel: #5F7C99;
   --color-border: #CED6DD;
   --color-surface: #E7ECEF;
+  --color-compliant: #4A7C59;
+  --color-due-soon: #B8860B;
+  --color-overdue: #9B4D4D;
 }
 
 * {

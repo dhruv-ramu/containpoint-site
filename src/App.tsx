@@ -29,7 +29,7 @@ function App() {
         <IndustriesSection />
         <ConsultantCallout />
         <SampleAuditSection />
-        <PricingPreview />
+        {/* <PricingPreview /> */}
         <FinalCTA />
         <ProductSection />
         <HowItWorksSection />
