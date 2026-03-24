@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -31,12 +32,12 @@ export function Navigation() {
     >
       <nav className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <a
-            href="#"
+          <Link
+            to="/"
             className="font-heading text-2xl font-semibold tracking-tight text-charcoal hover:text-steel transition-colors"
           >
             ContainPoint
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-10">

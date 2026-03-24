@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const NAV_LINKS = [
   { href: "#product", label: "Product" },
@@ -15,9 +16,9 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid lg:grid-cols-4 gap-12">
           <div className="lg:col-span-2">
-            <a href="#" className="font-heading text-2xl font-semibold tracking-tight text-charcoal hover:text-steel transition-colors">
+            <Link to="/" className="font-heading text-2xl font-semibold tracking-tight text-charcoal hover:text-steel transition-colors">
               ContainPoint
-            </a>
+            </Link>
             <p className="mt-4 text-slate max-w-md">
               SPCC compliance that stays current, complete, and audit-ready.
             </p>
@@ -42,12 +43,32 @@ export function Footer() {
           </div>
           <div>
             <h4 className="text-sm font-medium text-charcoal uppercase tracking-wider mb-4">Contact</h4>
-            <a
-              href="mailto:hello@containpoint.com"
-              className="text-slate hover:text-charcoal transition-colors"
-            >
-              hello@containpoint.com
-            </a>
+            <ul className="space-y-3">
+              <li>
+                <a
+                  href="mailto:hello@containpoint.com"
+                  className="text-slate hover:text-charcoal transition-colors"
+                >
+                  hello@containpoint.com
+                </a>
+              </li>
+              <li>
+                <Link
+                  to="/terms"
+                  className="text-slate hover:text-charcoal transition-colors font-heading text-[0.95rem]"
+                >
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/privacy"
+                  className="text-slate hover:text-charcoal transition-colors font-heading text-[0.95rem]"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
         <motion.div
