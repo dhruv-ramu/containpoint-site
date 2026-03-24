@@ -106,6 +106,15 @@ npm run screenshots
 
 ---
 
+## Deploy to Vercel
+
+1. Push to GitHub and connect the repo in [Vercel](https://vercel.com).
+2. Add the environment variable:
+   - `VITE_FORMSPREE_FORM_ID` — Your Formspree form ID from [formspree.io](https://formspree.io)
+3. Deploy. Vercel will detect Vite and build automatically.
+
+---
+
 ## Project Structure
 
 ```

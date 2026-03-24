@@ -5,12 +5,48 @@ import { Button } from "@/components/ui/Button";
 const INDUSTRIES = ["Trucking", "Manufacturing", "Agriculture", "Data center", "Equipment/Construction", "Consulting", "Other"];
 const COMPLIANCE_METHODS = ["Spreadsheets", "Paper binders", "Existing software", "No formal system", "Other"];
 
+// Set this in .env as VITE_FORMSPREE_FORM_ID=your_form_id
+// Get your ID at https://formspree.io — create a form, use the endpoint (e.g. xyzabc from formspree.io/f/xyzabc)
+const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_FORM_ID
+  ? `https://formspree.io/f/${import.meta.env.VITE_FORMSPREE_FORM_ID}`
+  : null;
+
 export function BookDemoSection() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setError(null);
+
+    if (!FORMSPREE_ENDPOINT) {
+      // Dev fallback: show success without actually submitting
+      setSubmitted(true);
+      return;
+    }
+
+    setLoading(true);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || `Request failed (${res.status})`);
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again or email us directly.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -51,6 +87,12 @@ export function BookDemoSection() {
             Book a short demo to see inspection workflows, corrective action tracking, and an example audit pack.
           </p>
           <form onSubmit={handleSubmit} className="mt-10 space-y-6">
+            <input type="hidden" name="_subject" value="ContainPoint — Demo Request" />
+            {error && (
+              <div className="rounded-lg border border-overdue/30 bg-overdue/5 px-4 py-3 text-sm text-overdue">
+                {error}
+              </div>
+            )}
             <div className="grid sm:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-charcoal mb-1.5">
@@ -134,8 +176,14 @@ export function BookDemoSection() {
                 ))}
               </select>
             </div>
-            <Button type="submit" variant="primary" size="lg" className="w-full sm:w-auto">
-              Request Demo
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              className="w-full sm:w-auto"
+              disabled={loading}
+            >
+              {loading ? "Sending…" : "Request Demo"}
             </Button>
           </form>
         </motion.div>
