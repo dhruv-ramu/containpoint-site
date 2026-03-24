@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+
+  --color-bone: #FAF9F6;
+  --color-mist: #F2F5F7;
+  --color-charcoal: #171717;
+  --color-slate: #5E6873;
+  --color-steel: #5F7C99;
+  --color-border: #CED6DD;
+  --color-surface: #E7ECEF;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bone);
+  color: var(--color-charcoal);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}

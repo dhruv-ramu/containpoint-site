@@ -1,0 +1,145 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/Button";
+
+const INDUSTRIES = ["Trucking", "Manufacturing", "Agriculture", "Data center", "Equipment/Construction", "Consulting", "Other"];
+const COMPLIANCE_METHODS = ["Spreadsheets", "Paper binders", "Existing software", "No formal system", "Other"];
+
+export function BookDemoSection() {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <section id="book-demo" className="py-20 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="max-w-xl mx-auto text-center p-12 rounded-sm border border-border/60 bg-mist/30"
+          >
+            <h2 className="font-heading text-2xl font-semibold text-charcoal">
+              Thank you
+            </h2>
+            <p className="mt-4 text-slate">
+              We’ll be in touch shortly to schedule your demo.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="book-demo" className="py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="max-w-2xl mx-auto"
+        >
+          <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight">
+            See how ContainPoint works for your facilities.
+          </h2>
+          <p className="mt-4 text-slate">
+            Book a short demo to see inspection workflows, corrective action tracking, and an example audit pack.
+          </p>
+          <form onSubmit={handleSubmit} className="mt-10 space-y-6">
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-charcoal mb-1.5">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  className="w-full px-4 py-3 rounded-sm border border-border bg-bone text-charcoal placeholder:text-slate/60 focus:outline-none focus:ring-2 focus:ring-steel/30 focus:border-steel/50 transition-colors"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label htmlFor="company" className="block text-sm font-medium text-charcoal mb-1.5">
+                  Company
+                </label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  required
+                  className="w-full px-4 py-3 rounded-sm border border-border bg-bone text-charcoal placeholder:text-slate/60 focus:outline-none focus:ring-2 focus:ring-steel/30 focus:border-steel/50 transition-colors"
+                  placeholder="Company name"
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-charcoal mb-1.5">
+                Work email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                className="w-full px-4 py-3 rounded-sm border border-border bg-bone text-charcoal placeholder:text-slate/60 focus:outline-none focus:ring-2 focus:ring-steel/30 focus:border-steel/50 transition-colors"
+                placeholder="you@company.com"
+              />
+            </div>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="industry" className="block text-sm font-medium text-charcoal mb-1.5">
+                  Industry
+                </label>
+                <select
+                  id="industry"
+                  name="industry"
+                  className="w-full px-4 py-3 rounded-sm border border-border bg-bone text-charcoal focus:outline-none focus:ring-2 focus:ring-steel/30 focus:border-steel/50 transition-colors"
+                >
+                  {INDUSTRIES.map((ind) => (
+                    <option key={ind} value={ind}>{ind}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="sites" className="block text-sm font-medium text-charcoal mb-1.5">
+                  Number of sites
+                </label>
+                <input
+                  id="sites"
+                  name="sites"
+                  type="text"
+                  className="w-full px-4 py-3 rounded-sm border border-border bg-bone text-charcoal placeholder:text-slate/60 focus:outline-none focus:ring-2 focus:ring-steel/30 focus:border-steel/50 transition-colors"
+                  placeholder="e.g. 1–5, 6–20"
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="method" className="block text-sm font-medium text-charcoal mb-1.5">
+                Current compliance method
+              </label>
+              <select
+                id="method"
+                name="method"
+                className="w-full px-4 py-3 rounded-sm border border-border bg-bone text-charcoal focus:outline-none focus:ring-2 focus:ring-steel/30 focus:border-steel/50 transition-colors"
+              >
+                {COMPLIANCE_METHODS.map((m) => (
+                  <option key={m} value={m}>{m}</option>
+                ))}
+              </select>
+            </div>
+            <Button type="submit" variant="primary" size="lg" className="w-full sm:w-auto">
+              Request Demo
+            </Button>
+          </form>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
