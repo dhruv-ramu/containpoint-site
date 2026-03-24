@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from "react";
 import { StatusBadge } from "./ui/StatusBadge";
 import { facility, sampleOrg } from "@/data/sampleDashboardData";
-import { FileDown, X, ChevronDown } from "lucide-react";
+import { FileDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface DashboardHeaderProps {
@@ -17,20 +16,6 @@ export function DashboardHeader({
   onClose,
   breadcrumb,
 }: DashboardHeaderProps) {
-  const [facilityDropdownOpen, setFacilityDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const currentFacility = sampleOrg.facilities[0];
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setFacilityDropdownOpen(false);
-      }
-    };
-    if (facilityDropdownOpen) document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [facilityDropdownOpen]);
-
   return (
     <div className="flex flex-col gap-0">
       {/* Top bar - only in fullscreen */}
@@ -38,32 +23,7 @@ export function DashboardHeader({
       <div className="flex items-center justify-between px-5 py-2.5 border-b border-border/30 bg-bone/50">
         <div className="flex items-center gap-4">
           <span className="text-xs text-slate">{sampleOrg.name}</span>
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setFacilityDropdownOpen(!facilityDropdownOpen)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-charcoal hover:bg-surface/60 rounded-md border border-border/50 transition-colors"
-              aria-haspopup="listbox"
-              aria-expanded={facilityDropdownOpen}
-            >
-              {currentFacility.name}
-              <ChevronDown size={14} className={cn("transition-transform", facilityDropdownOpen && "rotate-180")} />
-            </button>
-            {facilityDropdownOpen && (
-              <div className="absolute top-full left-0 mt-1 py-1 min-w-[200px] rounded-lg border border-border/50 bg-bone shadow-lg z-10">
-                {sampleOrg.facilities.map((f) => (
-                  <div
-                    key={f.id}
-                    className={cn(
-                      "px-3 py-2 text-xs cursor-default",
-                      f.id === currentFacility.id ? "bg-steel/10 text-steel font-medium" : "text-charcoal hover:bg-surface/60"
-                    )}
-                  >
-                    {f.name}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          <span className="text-xs font-medium text-charcoal">{facility.name}</span>
         </div>
         <span className="text-xs text-slate">{sampleOrg.userName}</span>
       </div>
