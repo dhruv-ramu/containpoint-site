@@ -2,7 +2,6 @@ import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ProblemSection } from "@/components/sections/ProblemSection";
 import { SolutionSection } from "@/components/sections/SolutionSection";
-import { CapabilitiesSection } from "@/components/sections/CapabilitiesSection";
 import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { SampleAuditSection } from "@/components/sections/SampleAuditSection";
 import { FinalCTA } from "@/components/sections/FinalCTA";
@@ -23,7 +22,7 @@ function App() {
         <HeroSection />
         <ProblemSection />
         <SolutionSection />
-        <CapabilitiesSection />
+        {/* <CapabilitiesSection /> */}
         <IndustriesSection />
         <SampleAuditSection />
         <FinalCTA />
