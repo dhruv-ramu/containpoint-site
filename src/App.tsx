@@ -27,9 +27,7 @@ function App() {
         <SolutionSection />
         <CapabilitiesSection />
         <IndustriesSection />
-        <ConsultantCallout />
         <SampleAuditSection />
-        {/* <PricingPreview /> */}
         <FinalCTA />
         <ProductSection />
         <HowItWorksSection />

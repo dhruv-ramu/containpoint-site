@@ -78,23 +78,26 @@ export function FullscreenDashboardDialog({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex flex-col bg-mist/95 backdrop-blur-sm"
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex flex-col bg-mist"
         >
-          <DashboardHeader
-            variant="fullscreen"
-            breadcrumb={breadcrumb}
-            onExport={() => handleTabChange("audit")}
-            onClose={onClose}
-          />
+          <div className="flex-shrink-0">
+            <DashboardHeader
+              variant="fullscreen"
+              breadcrumb={breadcrumb}
+              onExport={() => handleTabChange("audit")}
+              onClose={onClose}
+            />
+          </div>
           <div className="flex flex-1 min-h-0">
-            <aside className="hidden lg:flex w-56 border-r border-border/60 flex-shrink-0 bg-bone/80">
+            <aside className="hidden lg:flex w-60 border-r border-border/50 flex-shrink-0 bg-bone flex-col">
               <DashboardSidebar
                 activeTab={activeTab}
                 onTabChange={handleTabChange}
                 showConsultant={true}
               />
             </aside>
-            <div className="lg:hidden overflow-x-auto border-b border-border/60 flex gap-0 flex-shrink-0 bg-bone/80">
+            <div className="lg:hidden overflow-x-auto border-b border-border/50 flex gap-0 flex-shrink-0 bg-bone px-2">
               {[
                 "overview",
                 "assets",
@@ -108,27 +111,25 @@ export function FullscreenDashboardDialog({
                 <button
                   key={tab}
                   onClick={() => handleTabChange(tab)}
-                  className={`px-3 py-2 text-xs font-medium whitespace-nowrap border-b-2 transition-colors ${
+                  className={`px-4 py-3 text-xs font-medium whitespace-nowrap border-b-2 transition-colors ${
                     activeTab === tab
                       ? "border-steel text-steel"
                       : "border-transparent text-slate hover:text-charcoal"
                   }`}
                 >
-                  {tab === "consultant"
-                    ? "Consultant"
-                    : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  {tab === "consultant" ? "Consultant" : tab.charAt(0).toUpperCase() + tab.slice(1)}
                 </button>
               ))}
             </div>
-            <main className="flex-1 overflow-y-auto min-w-0">
+            <main className="flex-1 overflow-y-auto min-w-0 bg-mist/30">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTab}
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
+                  exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.2 }}
-                  className="p-4 lg:p-6"
+                  className="p-6 lg:p-8"
                 >
                   {TabContent && (
                     <TabContent

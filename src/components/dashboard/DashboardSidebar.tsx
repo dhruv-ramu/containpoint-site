@@ -34,7 +34,7 @@ export function DashboardSidebar({
 }: DashboardSidebarProps) {
   const items = showConsultant ? NAV_ITEMS : NAV_ITEMS.filter((i) => i.id !== "consultant");
   return (
-    <nav className="flex flex-col gap-0.5 p-2">
+    <nav className="flex flex-col gap-0.5 p-3">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = activeTab === item.id;
@@ -43,13 +43,13 @@ export function DashboardSidebar({
             key={item.id}
             onClick={() => onTabChange(item.id)}
             className={cn(
-              "flex items-center gap-2 px-3 py-2 rounded-sm text-left text-sm font-medium transition-colors",
+              "flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-left text-sm font-medium transition-all",
               isActive
-                ? "bg-steel/10 text-steel border-l-2 border-steel"
-                : "text-slate hover:bg-surface/60 hover:text-charcoal"
+                ? "bg-steel/12 text-steel shadow-sm"
+                : "text-slate hover:bg-surface/70 hover:text-charcoal"
             )}
           >
-            <Icon size={16} className="flex-shrink-0" />
+            <Icon size={17} className="flex-shrink-0 opacity-80" />
             {item.label}
           </button>
         );

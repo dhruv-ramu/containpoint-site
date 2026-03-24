@@ -11,8 +11,8 @@ export function DashboardShell({ children, className, variant = "embedded" }: Da
   return (
     <div
       className={cn(
-        "rounded-sm border border-border/60 bg-bone shadow-[0_2px_12px_rgba(23,23,23,0.06)] overflow-hidden",
-        variant === "embedded" && "max-w-4xl",
+        "overflow-hidden rounded-xl border border-border/50 bg-bone shadow-[0_4px_24px_rgba(23,23,23,0.06)]",
+        variant === "embedded" && "max-w-4xl ring-1 ring-black/5",
         className
       )}
     >
