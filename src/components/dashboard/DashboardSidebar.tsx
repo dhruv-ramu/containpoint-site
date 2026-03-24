@@ -1,22 +1,24 @@
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
-  Database,
+  FileText,
+  Box,
   ClipboardCheck,
   AlertTriangle,
   GraduationCap,
-  FileText,
   Package,
   Building2,
+  Download,
 } from "lucide-react";
 
 const NAV_ITEMS = [
-  { id: "overview", label: "Overview", icon: LayoutDashboard },
-  { id: "assets", label: "Assets", icon: Database },
+  { id: "overview", label: "Dashboard", icon: LayoutDashboard },
+  { id: "assets", label: "Assets", icon: Box },
+  { id: "plan", label: "Plan", icon: FileText },
   { id: "inspections", label: "Inspections", icon: ClipboardCheck },
   { id: "actions", label: "Corrective Actions", icon: AlertTriangle },
   { id: "training", label: "Training", icon: GraduationCap },
-  { id: "plan", label: "SPCC Plan", icon: FileText },
+  { id: "exports", label: "Exports", icon: Download },
   { id: "audit", label: "Audit Pack", icon: Package },
   { id: "consultant", label: "Consultant View", icon: Building2 },
 ];

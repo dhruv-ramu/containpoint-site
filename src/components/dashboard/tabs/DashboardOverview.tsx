@@ -17,18 +17,32 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { ClipboardCheck, AlertTriangle, GraduationCap, FileText } from "lucide-react";
+import {
+  ClipboardCheck,
+  AlertTriangle,
+  GraduationCap,
+  FileText,
+  ClipboardList,
+  Box,
+  Container,
+  ChevronRight,
+} from "lucide-react";
 import { StatCard } from "../ui/StatCard";
 import { StatusBadge } from "../ui/StatusBadge";
 import {
   facility,
+  complianceStatus,
   recentActivity,
   upcomingDeadlines,
+  overdueInspectionsSample,
+  overdueActionsSample,
+  upcomingInspections,
+  trainingSummarySample,
   inspectionTrendData,
   findingsByAreaData,
   assetStatusData,
-  assets,
   evidenceReadiness,
+  assets,
 } from "@/data/sampleDashboardData";
 
 const CHART_COLORS = {
@@ -55,42 +69,368 @@ const ACTIVITY_ICONS: Record<string, typeof ClipboardCheck> = {
   plan: FileText,
 };
 
+const complianceCardStyle = (status: string) =>
+  status === "NONCOMPLIANT"
+    ? "border-red-200 bg-red-50/50"
+    : status === "AT_RISK"
+      ? "border-amber-200 bg-amber-50/50"
+      : "border-green-200 bg-green-50/50";
+
+const complianceTextStyle = (status: string) =>
+  status === "NONCOMPLIANT"
+    ? "text-red-700"
+    : status === "AT_RISK"
+      ? "text-amber-700"
+      : "text-green-700";
+
 export function DashboardOverview({ compact = false }: { compact?: boolean }) {
   const id = useId().replace(/:/g, "");
-  const kpis = compact
+  const kpis = !compact
     ? [
-        { label: "Compliance Score", value: `${facility.complianceScore}%`, highlight: true },
-        { label: "Assets in Good Standing", value: `${facility.assetsInGoodStanding} / ${facility.totalAssets}` },
-        { label: "Inspections Due", value: facility.inspectionsDueNext14Days },
-        { label: "Open Actions", value: facility.openCorrectiveActions },
-      ]
-    : [
         { label: "Compliance Score", value: `${facility.complianceScore}%`, highlight: true },
         { label: "Required Inspections This Month", value: facility.inspectionsRequiredThisMonth },
         { label: "Completed This Month", value: facility.inspectionsCompletedThisMonth },
         { label: "Open Corrective Actions", value: facility.openCorrectiveActions },
         { label: "Training Renewals Due", value: facility.trainingRenewalsDue30Days },
         { label: "Plan Review Status", value: "Current" },
-      ];
+      ]
+    : null;
 
   return (
-    <div className="p-5 lg:p-6 space-y-6">
-      <div
-        className={
-          compact
-            ? "grid grid-cols-2 lg:grid-cols-4 gap-4"
-            : "grid grid-cols-2 lg:grid-cols-3 gap-4"
-        }
-      >
-        {kpis.map((kpi) => (
-          <StatCard
-            key={kpi.label}
-            label={kpi.label}
-            value={kpi.value}
-            highlight={kpi.highlight}
-          />
-        ))}
+    <div className={compact ? "p-3 space-y-3" : "p-5 lg:p-6 space-y-6"}>
+      {/* Compact view - succinct for home page */}
+      {compact ? (
+        <>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+            <StatCard label="Compliance Score" value={`${facility.complianceScore}%`} highlight compact />
+            <StatCard label="Assets in Good Standing" value={`${facility.assetsInGoodStanding} / ${facility.totalAssets}`} compact />
+            <StatCard label="Inspections Due" value={facility.inspectionsDueNext14Days} compact />
+            <StatCard label="Open Actions" value={facility.openCorrectiveActions} compact />
+          </div>
+          <div className="grid lg:grid-cols-2 gap-3">
+            <div className="rounded-lg border border-border/50 bg-bone p-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+              <h4 className="text-[10px] font-semibold text-slate uppercase tracking-wider mb-2">
+                90-day Inspection Trend
+              </h4>
+              <div className="h-24">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={inspectionTrendData.slice(-4)} margin={{ top: 2, right: 2 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke={CHART_COLORS.slate} opacity={0.15} vertical={false} />
+                    <XAxis dataKey="month" tick={{ fontSize: 9, fill: CHART_COLORS.slate }} axisLine={false} tickLine={false} />
+                    <YAxis hide />
+                    <Tooltip contentStyle={TOOLTIP_STYLE} />
+                    <Line type="monotone" dataKey="completed" stroke={CHART_COLORS.compliant} strokeWidth={2} dot={{ fill: CHART_COLORS.compliant, r: 2 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+            <div className="rounded-lg border border-border/50 bg-bone p-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+              <h4 className="text-[10px] font-semibold text-slate uppercase tracking-wider mb-2">
+                Asset Snapshot
+              </h4>
+              <div className="space-y-1">
+                {assets.slice(0, 4).map((a) => (
+                  <div key={a.id} className="flex items-center justify-between py-1.5 px-2 rounded bg-surface/40">
+                    <span className="text-xs text-charcoal truncate">{a.name}</span>
+                    <StatusBadge status={a.status} size="sm" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="rounded-lg border border-border/50 bg-bone p-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <h4 className="text-[10px] font-semibold text-slate uppercase tracking-wider mb-2">
+              Recent Activity
+            </h4>
+            <div className="space-y-1">
+              {recentActivity.slice(0, 3).map((a, i) => {
+                const Icon = ACTIVITY_ICONS[a.type] ?? ClipboardCheck;
+                return (
+                  <div key={i} className="flex gap-2 text-xs py-0.5">
+                    <Icon size={12} className="text-slate flex-shrink-0 mt-0.5" />
+                    <span className="text-slate flex-shrink-0 w-10">{a.date}</span>
+                    <span className="text-charcoal truncate">{a.event}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+      {/* Full view - compliance status row */}
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`rounded-lg border p-4 ${complianceCardStyle(complianceStatus.overallStatus)}`}
+        >
+          <p className="text-[11px] font-medium text-slate uppercase tracking-wider">
+            Compliance status
+          </p>
+          <p className={`mt-1 font-semibold ${complianceTextStyle(complianceStatus.overallStatus)}`}>
+            {complianceStatus.overallStatus.replace(/_/g, " ")}
+          </p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.03 }}
+          className="rounded-lg border border-border/50 bg-bone p-4"
+        >
+          <p className="text-[11px] font-medium text-slate uppercase tracking-wider">
+            Hard failures
+          </p>
+          <p className="mt-1 font-semibold text-red-700">
+            {complianceStatus.hardFailures}
+          </p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.06 }}
+          className="rounded-lg border border-border/50 bg-bone p-4"
+        >
+          <p className="text-[11px] font-medium text-slate uppercase tracking-wider">
+            Risk flags
+          </p>
+          <p className="mt-1 font-semibold text-amber-700">
+            {complianceStatus.riskFlags}
+          </p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.09 }}
+          className="rounded-lg border border-border/50 bg-bone p-4"
+        >
+          <p className="text-[11px] font-medium text-slate uppercase tracking-wider">
+            Accountable person
+          </p>
+          <p className="mt-1 font-medium text-charcoal truncate">
+            {complianceStatus.accountablePerson}
+          </p>
+        </motion.div>
       </div>
+
+      {/* Overdue & Upcoming */}
+      {(overdueInspectionsSample.length > 0 ||
+        overdueActionsSample.length > 0 ||
+        upcomingInspections.length > 0) && (
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+          {overdueInspectionsSample.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="rounded-lg border border-amber-200 bg-amber-50/30 p-4"
+            >
+              <h4 className="text-xs font-semibold text-charcoal flex items-center gap-2 mb-3">
+                <AlertTriangle className="h-4 w-4 text-amber-600" />
+                Overdue inspections
+              </h4>
+              <ul className="space-y-2 text-sm">
+                {overdueInspectionsSample.slice(0, 3).map((s) => (
+                  <li key={s.id} className="text-amber-800">
+                    {s.template} · {s.asset}
+                    <span className="text-slate ml-1">Due {s.dueDate}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+          {overdueActionsSample.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.12 }}
+              className="rounded-lg border border-amber-200 bg-amber-50/30 p-4"
+            >
+              <h4 className="text-xs font-semibold text-charcoal flex items-center gap-2 mb-3">
+                <AlertTriangle className="h-4 w-4 text-amber-600" />
+                Overdue corrective actions
+              </h4>
+              <ul className="space-y-2 text-sm">
+                {overdueActionsSample.slice(0, 3).map((a) => (
+                  <li key={a.id} className="text-amber-800">
+                    {a.title}
+                    <span className="text-slate ml-1">{a.dueDate}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+          {upcomingInspections.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.14 }}
+              className="rounded-lg border border-border/50 bg-bone p-4"
+            >
+              <h4 className="text-xs font-semibold text-charcoal flex items-center gap-2 mb-3">
+                <ClipboardCheck className="h-4 w-4" />
+                Upcoming inspections
+              </h4>
+              <ul className="space-y-2 text-sm">
+                {upcomingInspections.slice(0, 3).map((s, i) => (
+                  <li key={i} className="text-charcoal">
+                    {s.template} · {s.asset}
+                    <span className="text-slate ml-1">{s.date}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+        </div>
+      )}
+
+      {/* Training status */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.16 }}
+        className="rounded-lg border border-border/50 bg-bone p-4"
+      >
+        <h4 className="text-xs font-semibold text-charcoal flex items-center gap-2 mb-2">
+          <GraduationCap className="h-4 w-4" />
+          Training status
+        </h4>
+        <p
+          className={`text-sm font-medium ${
+            trainingSummarySample.hasRecentBriefing ? "text-green-600" : "text-amber-600"
+          }`}
+        >
+          {trainingSummarySample.hasRecentBriefing
+            ? "Annual briefing within 365 days"
+            : "No annual briefing in last 365 days"}
+        </p>
+        {trainingSummarySample.latestDate && (
+          <p className="text-xs text-slate mt-1">
+            Last briefing: {trainingSummarySample.latestDate}
+          </p>
+        )}
+      </motion.div>
+
+      {/* Summary row */}
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+        <StatCard label="Qualification tier" value={String(facility.qualificationTier ?? "Tier II").replace(/_/g, " ")} />
+        <StatCard label="SPCC applicable" value={facility.spccApplicable ? "Yes" : "No"} />
+        <StatCard label="Assets" value={facility.totalAssets} />
+        <StatCard label="Containment units" value={facility.containmentUnits ?? 0} />
+        <StatCard label="Next 5-yr review" value={facility.nextFiveYearReviewDate ?? "—"} />
+      </div>
+
+      {/* Main cards */}
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="rounded-lg border border-border/50 bg-bone p-4"
+        >
+          <h4 className="font-semibold text-charcoal text-sm">Facility profile</h4>
+          <p className="text-xs text-slate mt-0.5">Legal name, address, operating details</p>
+          <div className="flex items-center justify-between mt-4">
+            <span
+              className={`text-sm font-medium ${
+                facility.profileComplete ? "text-green-600" : "text-amber-600"
+              }`}
+            >
+              {facility.profileComplete ? "Complete" : "Incomplete"}
+            </span>
+            <span className="text-xs text-slate flex items-center gap-0.5">
+              Edit <ChevronRight className="h-3 w-3" />
+            </span>
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.21 }}
+          className="rounded-lg border border-border/50 bg-bone p-4"
+        >
+          <h4 className="font-semibold text-charcoal text-sm flex items-center gap-2">
+            <ClipboardList className="h-4 w-4" />
+            Setup status
+          </h4>
+          <p className="text-xs text-slate mt-0.5">Applicability and qualification wizard</p>
+          <div className="flex items-center justify-between mt-4">
+            <span className="text-sm text-slate">
+              {facility.setupAssessed ? "Assessed" : "Not assessed"}
+            </span>
+            <span className="text-xs text-slate flex items-center gap-0.5">
+              {facility.setupAssessed ? "Review" : "Start"} <ChevronRight className="h-3 w-3" />
+            </span>
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.22 }}
+          className="rounded-lg border border-border/50 bg-bone p-4"
+        >
+          <h4 className="font-semibold text-charcoal text-sm flex items-center gap-2">
+            <Box className="h-4 w-4" />
+            Asset registry
+          </h4>
+          <p className="text-xs text-slate mt-0.5">Oil storage containers and equipment</p>
+          <div className="flex items-center justify-between mt-4">
+            <span className="text-sm font-medium">{facility.totalAssets} assets</span>
+            <span className="text-xs text-slate flex items-center gap-0.5">
+              Manage <ChevronRight className="h-3 w-3" />
+            </span>
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.23 }}
+          className="rounded-lg border border-border/50 bg-bone p-4"
+        >
+          <h4 className="font-semibold text-charcoal text-sm flex items-center gap-2">
+            <Container className="h-4 w-4" />
+            Containment registry
+          </h4>
+          <p className="text-xs text-slate mt-0.5">Secondary containment structures</p>
+          <div className="flex items-center justify-between mt-4">
+            <span className="text-sm font-medium">
+              {facility.containmentUnits ?? 0} units
+            </span>
+            <span className="text-xs text-slate flex items-center gap-0.5">
+              Manage <ChevronRight className="h-3 w-3" />
+            </span>
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.24 }}
+          className="rounded-lg border border-border/50 bg-bone p-4 md:col-span-2"
+        >
+          <h4 className="font-semibold text-charcoal text-sm">File attachments</h4>
+          <p className="text-xs text-slate mt-0.5">Plans, calculations, inspection evidence</p>
+          <div className="flex items-center justify-between mt-4">
+            <span className="text-sm font-medium">{facility.fileCount ?? 0} files</span>
+            <span className="text-xs text-slate flex items-center gap-0.5">
+              View in profile <ChevronRight className="h-3 w-3" />
+            </span>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Legacy KPIs */}
+      {kpis && (
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+          {kpis.map((kpi) => (
+            <StatCard
+              key={kpi.label}
+              label={kpi.label}
+              value={kpi.value}
+              highlight={kpi.highlight}
+            />
+          ))}
+        </div>
+      )}
 
       {!compact && (
         <>
@@ -298,59 +638,9 @@ export function DashboardOverview({ compact = false }: { compact?: boolean }) {
           </motion.div>
         </>
       )}
+      </>
+    )}
 
-      {compact && (
-        <>
-          <div className="grid lg:grid-cols-2 gap-5">
-            <div className="rounded-lg border border-border/50 bg-bone p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-              <h4 className="text-[11px] font-semibold text-slate uppercase tracking-wider mb-3">
-                90-day Inspection Trend
-              </h4>
-              <div className="h-36">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={inspectionTrendData.slice(-4)} margin={{ top: 4, right: 4 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke={CHART_COLORS.slate} opacity={0.15} vertical={false} />
-                    <XAxis dataKey="month" tick={{ fontSize: 10, fill: CHART_COLORS.slate }} axisLine={false} tickLine={false} />
-                    <YAxis hide />
-                    <Tooltip contentStyle={TOOLTIP_STYLE} />
-                    <Line type="monotone" dataKey="completed" stroke={CHART_COLORS.compliant} strokeWidth={2} dot={{ fill: CHART_COLORS.compliant, r: 3 }} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-            <div className="rounded-lg border border-border/50 bg-bone p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-              <h4 className="text-[11px] font-semibold text-slate uppercase tracking-wider mb-3">
-                Asset Snapshot
-              </h4>
-              <div className="space-y-2">
-                {assets.slice(0, 5).map((a) => (
-                  <div key={a.id} className="flex items-center justify-between py-2 px-3 rounded-lg bg-surface/40 hover:bg-surface/60 transition-colors">
-                    <span className="text-sm text-charcoal truncate">{a.name}</span>
-                    <StatusBadge status={a.status} size="sm" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="rounded-lg border border-border/50 bg-bone p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-            <h4 className="text-[11px] font-semibold text-slate uppercase tracking-wider mb-3">
-              Recent Activity
-            </h4>
-            <div className="space-y-2">
-              {recentActivity.slice(0, 4).map((a, i) => {
-                const Icon = ACTIVITY_ICONS[a.type] ?? ClipboardCheck;
-                return (
-                  <div key={i} className="flex gap-2.5 text-sm py-1">
-                    <Icon size={14} className="text-slate flex-shrink-0 mt-0.5" />
-                    <span className="text-slate flex-shrink-0 w-12">{a.date}</span>
-                    <span className="text-charcoal truncate">{a.event}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </>
-      )}
     </div>
   );
 }

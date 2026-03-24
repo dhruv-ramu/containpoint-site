@@ -10,15 +10,19 @@ import { DashboardTraining } from "./tabs/DashboardTraining";
 import { DashboardPlan } from "./tabs/DashboardPlan";
 import { DashboardAuditPack } from "./tabs/DashboardAuditPack";
 import { DashboardConsultantView } from "./tabs/DashboardConsultantView";
+import { DashboardPlaceholder } from "./tabs/DashboardPlaceholder";
 import { facility } from "@/data/sampleDashboardData";
+
+const ExportsPlaceholder = () => <DashboardPlaceholder title="Exports" description="Export facility data and audit-ready packages." />;
 
 const TAB_COMPONENTS: Record<string, React.ComponentType<any>> = {
   overview: DashboardOverview,
   assets: DashboardAssets,
+  plan: DashboardPlan,
   inspections: DashboardInspections,
   actions: DashboardActions,
   training: DashboardTraining,
-  plan: DashboardPlan,
+  exports: ExportsPlaceholder,
   audit: DashboardAuditPack,
   consultant: DashboardConsultantView,
 };
@@ -101,10 +105,10 @@ export function FullscreenDashboardDialog({
               {[
                 "overview",
                 "assets",
+                "plan",
                 "inspections",
                 "actions",
                 "training",
-                "plan",
                 "audit",
                 "consultant",
               ].map((tab) => (
@@ -117,7 +121,7 @@ export function FullscreenDashboardDialog({
                       : "border-transparent text-slate hover:text-charcoal"
                   }`}
                 >
-                  {tab === "consultant" ? "Consultant" : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  {tab === "consultant" ? "Consultant" : tab === "overview" ? "Dashboard" : tab.charAt(0).toUpperCase() + tab.slice(1)}
                 </button>
               ))}
             </div>

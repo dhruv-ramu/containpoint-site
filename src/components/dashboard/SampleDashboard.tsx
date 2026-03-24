@@ -12,15 +12,19 @@ import { DashboardTraining } from "./tabs/DashboardTraining";
 import { DashboardPlan } from "./tabs/DashboardPlan";
 import { DashboardAuditPack } from "./tabs/DashboardAuditPack";
 import { DashboardConsultantView } from "./tabs/DashboardConsultantView";
+import { DashboardPlaceholder } from "./tabs/DashboardPlaceholder";
 import { FullscreenDashboardDialog } from "./FullscreenDashboardDialog";
+
+const ExportsPlaceholder = () => <DashboardPlaceholder title="Exports" description="Export facility data and audit-ready packages." />;
 
 const TAB_COMPONENTS: Record<string, React.ComponentType<any>> = {
   overview: DashboardOverview,
   assets: DashboardAssets,
+  plan: DashboardPlan,
   inspections: DashboardInspections,
   actions: DashboardActions,
   training: DashboardTraining,
-  plan: DashboardPlan,
+  exports: ExportsPlaceholder,
   audit: DashboardAuditPack,
   consultant: DashboardConsultantView,
 };
@@ -52,7 +56,7 @@ export function SampleDashboard() {
         <DashboardShell variant="embedded">
           <DashboardHeader variant="embedded" />
           <div className="flex flex-col lg:flex-row">
-            <div className="hidden lg:block w-52 border-r border-border/50 flex-shrink-0 bg-mist/30">
+            <div className="hidden lg:block w-48 border-r border-border/50 flex-shrink-0 bg-mist/30">
               <DashboardSidebar
                 activeTab={activeTab}
                 onTabChange={setActiveTab}
@@ -63,11 +67,12 @@ export function SampleDashboard() {
               {[
                 "overview",
                 "assets",
+                "plan",
                 "inspections",
                 "actions",
                 "training",
-                "plan",
                 "audit",
+                "consultant",
               ].map((tab) => (
                 <button
                   key={tab}
@@ -82,26 +87,29 @@ export function SampleDashboard() {
                 </button>
               ))}
             </div>
-            <div className="flex-1 min-w-0">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {TabContent && (
-                    <TabContent
-                      {...(activeTab === "overview" && { compact: true })}
-                      {...(activeTab === "audit" && { onExportSuccess: handleExportSuccess })}
-                    />
-                  )}
-                </motion.div>
-              </AnimatePresence>
+            <div className="flex-1 min-w-0 flex flex-col min-h-0">
+              <div className="h-[260px] overflow-y-auto">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.2 }}
+                    className="h-full"
+                  >
+                    {TabContent && (
+                      <TabContent
+                        {...(activeTab === "overview" && { compact: true })}
+                        {...(activeTab === "audit" && { onExportSuccess: handleExportSuccess })}
+                      />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
-          <div className="px-5 py-4 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-3 bg-mist/20">
+          <div className="px-4 py-3 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-2 bg-mist/20">
             <p className="text-xs text-slate">
               Explore facility status, inspections, corrective actions, and audit readiness.
             </p>

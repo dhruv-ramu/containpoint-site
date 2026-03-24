@@ -11,6 +11,14 @@ import {
 // ─── Dates relative to today (computed once at module load) ───
 const d = (n: number) => (n >= 0 ? daysFromNow(n) : daysAgo(-n));
 
+// Mirrors real dashboard validation/compliance structure
+export const complianceStatus = {
+  overallStatus: "AT_RISK" as "COMPLIANT" | "AT_RISK" | "NONCOMPLIANT",
+  hardFailures: 0,
+  riskFlags: 1,
+  accountablePerson: "D. Alvarez",
+};
+
 export const facility = {
   name: "San Jose Logistics Yard",
   company: "WestPeak Transport",
@@ -21,6 +29,8 @@ export const facility = {
   nextReviewDue: fmtShortWithYear(monthsFromNow(54)),
   auditReadiness: "Audit-ready",
   totalAssets: 12,
+  containmentUnits: 4,
+  fileCount: 8,
   openCorrectiveActions: 1,
   inspectionsDueNext14Days: 2,
   trainingRenewalsDue30Days: 1,
@@ -31,6 +41,11 @@ export const facility = {
   inspectionsRequiredThisMonth: 14,
   nextCriticalDeadline: fmtShort(d(2)),
   nextCriticalItem: "AST-02 Fuel Storage Tank visual inspection",
+  qualificationTier: "TIER_II",
+  spccApplicable: true,
+  profileComplete: true,
+  setupAssessed: true,
+  nextFiveYearReviewDate: fmtShortWithYear(monthsFromNow(54)),
 };
 
 export const evidenceReadiness = {
@@ -55,50 +70,56 @@ const dueIn3Fmt = fmtShort(dueIn3);
 const created2Ago = fmtShort(d(-2));
 
 export const assetDetails: Record<string, { containmentNotes: string; nextInspection: string; inspector: string; linkedActions?: string[]; overfillProtection?: string; nextTestRequirement?: string }> = {
-  "AST-01": { containmentNotes: "Berm A in good condition. Annual integrity check due Q4. Overfill protection verified.", nextInspection: fmtShort(d(23)), inspector: "A. Ramirez", linkedActions: [], overfillProtection: "High-level alarm", nextTestRequirement: "Annual leak test" },
-  "AST-02": { containmentNotes: "Minor crack noted at Berm B. CA-014 logged. Containment condition requires repair.", nextInspection: fmtShort(d(2)), inspector: "J. Patel", linkedActions: ["CA-014"], overfillProtection: "Float switch", nextTestRequirement: "Integrity check post-repair" },
-  "GEN-01": { containmentNotes: "Integrated containment. No issues. Overfill protection operational.", nextInspection: fmtShort(d(2)), inspector: "M. Chen", linkedActions: [], overfillProtection: "Integrated", nextTestRequirement: "Quarterly visual" },
-  "HYD-01": { containmentNotes: "Contained reservoir. Weekly visual. Secondary containment adequate.", nextInspection: fmtShort(d(30)), inspector: "A. Ramirez", linkedActions: [], overfillProtection: "N/A", nextTestRequirement: "Monthly visual" },
-  "DRM-03": { containmentNotes: "Spill pallet capacity adequate. Labeling verified. Transfer area checks current.", nextInspection: fmtShort(d(28)), inspector: "J. Patel", linkedActions: [], overfillProtection: "N/A", nextTestRequirement: "Monthly area check" },
-  "TRF-01": { containmentNotes: `Trench and sump operational. Transfer hose signage updated ${fmtShort(d(-19))}. Overfill protection at loading rack verified.`, nextInspection: fmtShort(d(17)), inspector: "A. Ramirez", linkedActions: [], overfillProtection: "Loading arm cutoff", nextTestRequirement: "Monthly transfer area check" },
+  "AST-01": { containmentNotes: "Berm A in good condition. Annual integrity check due Q4. Overfill protection verified.", nextInspection: fmtShort(d(23)), inspector: "C. Mendoza", linkedActions: [], overfillProtection: "High-level alarm", nextTestRequirement: "Annual leak test" },
+  "AST-02": { containmentNotes: "Minor crack noted at Berm B. CA-014 logged. Containment condition requires repair.", nextInspection: fmtShort(d(2)), inspector: "T. Brooks", linkedActions: ["CA-014"], overfillProtection: "Float switch", nextTestRequirement: "Integrity check post-repair" },
+  "GEN-01": { containmentNotes: "Integrated containment. No issues. Overfill protection operational.", nextInspection: fmtShort(d(2)), inspector: "E. Park", linkedActions: [], overfillProtection: "Integrated", nextTestRequirement: "Quarterly visual" },
+  "HYD-01": { containmentNotes: "Contained reservoir. Weekly visual. Secondary containment adequate.", nextInspection: fmtShort(d(30)), inspector: "C. Mendoza", linkedActions: [], overfillProtection: "N/A", nextTestRequirement: "Monthly visual" },
+  "DRM-03": { containmentNotes: "Spill pallet capacity adequate. Labeling verified. Transfer area checks current.", nextInspection: fmtShort(d(28)), inspector: "T. Brooks", linkedActions: [], overfillProtection: "N/A", nextTestRequirement: "Monthly area check" },
+  "TRF-01": { containmentNotes: `Trench and sump operational. Transfer hose signage updated ${fmtShort(d(-19))}. Overfill protection at loading rack verified.`, nextInspection: fmtShort(d(17)), inspector: "C. Mendoza", linkedActions: [], overfillProtection: "Loading arm cutoff", nextTestRequirement: "Monthly transfer area check" },
 };
 
 export const inspections = [
-  { id: "INSP-2381", asset: "AST-01 Diesel Tank A", procedure: "Monthly Visual", frequency: "Monthly", completedBy: "A. Ramirez", date: fmtShort(d(-8)), result: "Pass", verified: "Verified" },
-  { id: "INSP-2386", asset: "GEN-01 Generator Tank", procedure: "Weekly Check", frequency: "Weekly", completedBy: "M. Chen", date: fmtShort(d(-5)), result: "Pass", verified: "Verified" },
-  { id: "INSP-2392", asset: "HYD-01 Hydraulic Reservoir", procedure: "Monthly Visual", frequency: "Monthly", completedBy: "A. Ramirez", date: fmtShort(d(-1)), result: "Pass", verified: "Verified" },
-  { id: "INSP-2394", asset: "TRF-01 Loading Transfer Area", procedure: "Transfer Area Check", frequency: "Monthly", completedBy: "J. Patel", date: fmtShort(d(0)), result: "Attention", verified: "Pending Review" },
-  { id: "INSP-2389", asset: "AST-02 Fuel Storage Tank", procedure: "Monthly Visual", frequency: "Monthly", completedBy: "J. Patel", date: fmtShort(d(-2)), result: "Fail", verified: "Verified", linkedAction: "CA-014" },
+  { id: "INSP-2381", asset: "AST-01 Diesel Tank A", procedure: "Monthly Visual", frequency: "Monthly", completedBy: "C. Mendoza", date: fmtShort(d(-8)), result: "Pass", verified: "Verified" },
+  { id: "INSP-2386", asset: "GEN-01 Generator Tank", procedure: "Weekly Check", frequency: "Weekly", completedBy: "E. Park", date: fmtShort(d(-5)), result: "Pass", verified: "Verified" },
+  { id: "INSP-2392", asset: "HYD-01 Hydraulic Reservoir", procedure: "Monthly Visual", frequency: "Monthly", completedBy: "C. Mendoza", date: fmtShort(d(-1)), result: "Pass", verified: "Verified" },
+  { id: "INSP-2394", asset: "TRF-01 Loading Transfer Area", procedure: "Transfer Area Check", frequency: "Monthly", completedBy: "T. Brooks", date: fmtShort(d(0)), result: "Attention", verified: "Pending Review" },
+  { id: "INSP-2389", asset: "AST-02 Fuel Storage Tank", procedure: "Monthly Visual", frequency: "Monthly", completedBy: "T. Brooks", date: fmtShort(d(-2)), result: "Fail", verified: "Verified", linkedAction: "CA-014" },
 ];
 
+export const overdueInspectionsSample = [
+  { id: "1", template: "Monthly Visual", asset: "AST-02 Fuel Storage Tank", dueDate: fmtShort(d(-3)) },
+];
+export const overdueActionsSample = [
+  { id: "CA-014", title: "Secondary containment crack at Berm B", dueDate: fmtShort(d(-2)), asset: "AST-02" },
+];
 export const upcomingInspections = [
-  { date: fmtShort(d(2)), asset: "AST-02 Fuel Storage Tank" },
-  { date: fmtShort(d(4)), asset: "Containment Berm B" },
-  { date: fmtShort(d(10)), asset: "Annual briefing checklist" },
+  { date: fmtShort(d(2)), asset: "AST-02 Fuel Storage Tank", template: "Monthly Visual" },
+  { date: fmtShort(d(4)), asset: "Containment Berm B", template: "Containment Check" },
+  { date: fmtShort(d(10)), asset: "Annual briefing checklist", template: "Annual Briefing" },
 ];
 
 const ca014DueDate = dueIn3Fmt;
 const ca014DaysRemaining = Math.max(0, Math.ceil((dueIn3.getTime() - today.getTime()) / 86400000));
 
 export const correctiveActions = [
-  { id: "CA-014", title: "Secondary containment crack at Berm B", severity: "Medium", linkedAsset: "AST-02", owner: "J. Patel", dueDate: ca014DueDate, status: "In Progress", evidence: "1 photo uploaded", createdDate: created2Ago, sourceInspection: "INSP-2389", daysRemaining: ca014DaysRemaining, verificationPending: true },
-  { id: "CA-012", title: "Missing drum label replaced", severity: "Low", linkedAsset: "DRM-03", owner: "M. Chen", dueDate: fmtShort(d(-15)), status: "Closed", evidence: "Verified", createdDate: fmtShort(d(-17)), sourceInspection: "INSP-2375", verificationPending: false },
-  { id: "CA-011", title: "Transfer hose signage updated", severity: "Low", linkedAsset: "TRF-01", owner: "A. Ramirez", dueDate: fmtShort(d(-19)), status: "Closed", evidence: "Verified", createdDate: fmtShort(d(-21)), sourceInspection: "INSP-2368", verificationPending: false },
+  { id: "CA-014", title: "Secondary containment crack at Berm B", severity: "Medium", linkedAsset: "AST-02", owner: "T. Brooks", dueDate: ca014DueDate, status: "In Progress", evidence: "1 photo uploaded", createdDate: created2Ago, sourceInspection: "INSP-2389", daysRemaining: ca014DaysRemaining, verificationPending: true },
+  { id: "CA-012", title: "Missing drum label replaced", severity: "Low", linkedAsset: "DRM-03", owner: "E. Park", dueDate: fmtShort(d(-15)), status: "Closed", evidence: "Verified", createdDate: fmtShort(d(-17)), sourceInspection: "INSP-2375", verificationPending: false },
+  { id: "CA-011", title: "Transfer hose signage updated", severity: "Low", linkedAsset: "TRF-01", owner: "C. Mendoza", dueDate: fmtShort(d(-19)), status: "Closed", evidence: "Verified", createdDate: fmtShort(d(-21)), sourceInspection: "INSP-2368", verificationPending: false },
 ];
 
 export const ca014Timeline = [
   { date: fmtShort(d(-2)), event: "Issue logged during Berm B inspection" },
-  { date: fmtShort(d(-1)), event: "Assigned to J. Patel" },
+  { date: fmtShort(d(-1)), event: "Assigned to T. Brooks" },
   { date: fmtShort(d(0)), event: "Repair scheduled" },
   { date: fmtShort(d(1)), event: "Photo evidence uploaded" },
   { date: fmtShort(d(2)), event: "Awaiting supervisor verification" },
 ];
 
 export const trainingRecords = [
-  { employee: "J. Patel", role: "Yard Supervisor", trainingType: "Annual SPCC Briefing", lastCompleted: fmtShortWithYear(monthsAgo(11)), nextDue: fmtShortWithYear(monthsFromNow(1)), status: "Due Soon" },
-  { employee: "A. Ramirez", role: "Maintenance Tech", trainingType: "Oil Handling Procedures", lastCompleted: fmtShortWithYear(monthsAgo(2)), nextDue: fmtShortWithYear(monthsFromNow(10)), status: "Current" },
-  { employee: "M. Chen", role: "Operations Lead", trainingType: "Discharge Response", lastCompleted: fmtShortWithYear(monthsAgo(1)), nextDue: fmtShortWithYear(monthsFromNow(11)), status: "Current" },
-  { employee: "R. Singh", role: "Inspector", trainingType: "Inspection Procedures", lastCompleted: fmtShortWithYear(monthsAgo(4)), nextDue: fmtShortWithYear(monthsFromNow(8)), status: "Current" },
+  { employee: "T. Brooks", role: "Yard Supervisor", trainingType: "Annual SPCC Briefing", lastCompleted: fmtShortWithYear(monthsAgo(11)), nextDue: fmtShortWithYear(monthsFromNow(1)), status: "Due Soon" },
+  { employee: "C. Mendoza", role: "Maintenance Tech", trainingType: "Oil Handling Procedures", lastCompleted: fmtShortWithYear(monthsAgo(2)), nextDue: fmtShortWithYear(monthsFromNow(10)), status: "Current" },
+  { employee: "E. Park", role: "Operations Lead", trainingType: "Discharge Response", lastCompleted: fmtShortWithYear(monthsAgo(1)), nextDue: fmtShortWithYear(monthsFromNow(11)), status: "Current" },
+  { employee: "S. Gallagher", role: "Inspector", trainingType: "Inspection Procedures", lastCompleted: fmtShortWithYear(monthsAgo(4)), nextDue: fmtShortWithYear(monthsFromNow(8)), status: "Current" },
 ];
 
 const lastReview = monthsAgo(6);
@@ -129,6 +150,16 @@ export const auditPackSections = [
   "Signatures / Verification",
 ];
 
+export const sampleOrg = {
+  name: "WestPeak Transport",
+  userName: "Demo User",
+  facilities: [
+    { id: "sj", name: "San Jose Logistics Yard" },
+    { id: "fr", name: "Fresno Fleet Depot" },
+    { id: "st", name: "Stockton Equipment Yard" },
+  ],
+};
+
 export const consultantSites = [
   { name: "San Jose Logistics Yard", status: "Audit-ready", openActions: 1, inspectionsDue: 2, trainingDue: 1, evidenceComplete: 92, nextDue: fmtShort(d(2)) },
   { name: "Fresno Fleet Depot", status: "Review needed", openActions: 3, inspectionsDue: 4, trainingDue: 0, evidenceComplete: 78, nextDue: fmtShort(d(1)) },
@@ -144,10 +175,15 @@ export const consultantSummary = {
   sitesAuditReady: 6,
 };
 
+export const trainingSummarySample = {
+  hasRecentBriefing: true,
+  latestDate: fmtShortWithYear(monthsAgo(11)),
+};
+
 export const recentActivity = [
-  { date: fmtShort(d(-1)), time: "14:32", event: "Hydraulic reservoir monthly inspection completed by A. Ramirez", type: "inspection" },
+  { date: fmtShort(d(-1)), time: "14:32", event: "Hydraulic reservoir monthly inspection completed by C. Mendoza", type: "inspection" },
   { date: fmtShort(d(-2)), time: "09:15", event: "Secondary containment crack logged as corrective action CA-014", type: "action" },
-  { date: fmtShort(d(-3)), time: "16:45", event: "Training acknowledgment uploaded for J. Patel", type: "training" },
+  { date: fmtShort(d(-3)), time: "16:45", event: "Training acknowledgment uploaded for T. Brooks", type: "training" },
   { date: fmtShort(d(-5)), time: "11:02", event: "Generator tank weekly inspection signed by supervisor", type: "inspection" },
   { date: fmtShort(d(-6)), time: "10:30", event: "SPCC plan amendment v3.2 reviewed", type: "plan" },
   { date: fmtShort(d(-8)), time: "08:22", event: "Diesel Tank A monthly visual inspection passed", type: "inspection" },

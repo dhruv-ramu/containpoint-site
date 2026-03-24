@@ -1,6 +1,9 @@
 import { cn } from "@/lib/utils";
 
 const STATUS_STYLES: Record<string, string> = {
+  COMPLIANT: "bg-compliant/15 text-compliant border-compliant/25",
+  AT_RISK: "bg-due-soon/15 text-due-soon border-due-soon/25",
+  NONCOMPLIANT: "bg-overdue/15 text-overdue border-overdue/25",
   "Audit-ready": "bg-compliant/15 text-compliant border-compliant/25",
   Compliant: "bg-compliant/15 text-compliant border-compliant/25",
   "Due Soon": "bg-due-soon/15 text-due-soon border-due-soon/25",
