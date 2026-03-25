@@ -23,7 +23,7 @@ import {
   faqPageJsonLd,
 } from "@/seo/structuredData";
 
-function useHomeHashScroll() {
+function useHomeScroll() {
   const { pathname, hash } = useLocation();
   useLayoutEffect(() => {
     if (pathname !== "/" || !hash) return;
@@ -32,10 +32,15 @@ function useHomeHashScroll() {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [pathname, hash]);
+
+  useLayoutEffect(() => {
+    if (pathname !== "/" || hash) return;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname, hash]);
 }
 
 export function HomePage() {
-  useHomeHashScroll();
+  useHomeScroll();
 
   return (
     <>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { handleHomeAnchorClick } from "@/lib/homeScroll";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -12,6 +13,7 @@ type NavigationProps = {
 };
 
 export function Navigation({ elevatedZIndex = false }: NavigationProps) {
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   useEffect(() => {
@@ -71,7 +73,10 @@ export function Navigation({ elevatedZIndex = false }: NavigationProps) {
             <Link
               to="/"
               className="font-heading text-xl sm:text-2xl font-semibold tracking-tight text-charcoal hover:text-steel transition-colors min-h-11 flex items-center pr-2 -ml-1 pl-1"
-              onClick={() => setMobileOpen(false)}
+              onClick={(e) => {
+                setMobileOpen(false);
+                handleHomeAnchorClick(e, location);
+              }}
             >
               ContainPoint
             </Link>
