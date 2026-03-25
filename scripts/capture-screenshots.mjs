@@ -47,6 +47,10 @@ async function capture() {
     });
     console.log("  ✓ sample-dashboard.png");
 
+    // Product page (How it works + modules live here, not on home)
+    await page.goto(`${BASE_URL}/product`, { waitUntil: "networkidle" });
+    await page.waitForTimeout(600);
+
     // 3. How It Works section
     const howSection = page.locator("#how-it-works");
     await howSection.scrollIntoViewIfNeeded();
