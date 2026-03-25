@@ -32,11 +32,11 @@ export function PricingPage() {
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-slate leading-relaxed">
               Questions about inspection tracking or audit-ready documentation?{" "}
-              <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              <Link to="/#product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                 View the platform
               </Link>{" "}
               or{" "}
-              <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              <Link to="/#book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                 book a demo
               </Link>
               .

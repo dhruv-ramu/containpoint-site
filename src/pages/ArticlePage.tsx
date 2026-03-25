@@ -115,15 +115,15 @@ export function ArticlePage() {
                   inspection tracking
                 </Link>
                 , maintain{" "}
-                <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+                <Link to="/#product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                   audit-ready documentation
                 </Link>
                 , and scale across sites—see{" "}
-                <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+                <Link to="/#pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                   pricing
                 </Link>{" "}
                 or{" "}
-                <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+                <Link to="/#book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                   book a demo
                 </Link>
                 .

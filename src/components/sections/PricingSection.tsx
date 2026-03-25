@@ -75,7 +75,7 @@ export function PricingSection({ showHeading = true }: PricingSectionProps) {
               ))}
             </ul>
             <Button variant="secondary" className="w-full mt-8" asChild>
-              <Link to="/book-demo">Get Started</Link>
+              <Link to="/#book-demo">Get Started</Link>
             </Button>
           </motion.div>
 
@@ -107,7 +107,7 @@ export function PricingSection({ showHeading = true }: PricingSectionProps) {
               ))}
             </ul>
             <Button variant="primary" className="w-full mt-8" asChild>
-              <Link to="/book-demo">Get Started</Link>
+              <Link to="/#book-demo">Get Started</Link>
             </Button>
           </motion.div>
 
@@ -135,7 +135,7 @@ export function PricingSection({ showHeading = true }: PricingSectionProps) {
               ))}
             </ul>
             <Button variant="outline" className="w-full mt-8" asChild>
-              <Link to="/book-demo">Contact Sales</Link>
+              <Link to="/#book-demo">Contact Sales</Link>
             </Button>
           </motion.div>
         </div>
@@ -146,11 +146,11 @@ export function PricingSection({ showHeading = true }: PricingSectionProps) {
           className="mt-10 text-center text-sm text-slate max-w-xl mx-auto"
         >
           Onboarding/setup fees may apply. Annual billing preferred. Consultant/portfolio pricing available.{" "}
-          <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+          <Link to="/#product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
             Explore the SPCC compliance platform
           </Link>{" "}
           or{" "}
-          <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+          <Link to="/#book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
             book a demo
           </Link>
           .

@@ -6,7 +6,12 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { MAIN_NAV } from "@/config/nav";
 
-export function Navigation() {
+type NavigationProps = {
+  /** Use above fullscreen overlays (e.g. sample dashboard modal). */
+  elevatedZIndex?: boolean;
+};
+
+export function Navigation({ elevatedZIndex = false }: NavigationProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   useEffect(() => {
@@ -43,7 +48,10 @@ export function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-charcoal/30 backdrop-blur-[2px] lg:hidden cursor-pointer touch-manipulation"
+            className={cn(
+              "fixed inset-0 bg-charcoal/30 backdrop-blur-[2px] lg:hidden cursor-pointer touch-manipulation",
+              elevatedZIndex ? "z-[105]" : "z-40"
+            )}
             onClick={() => setMobileOpen(false)}
           />
         )}
@@ -51,8 +59,11 @@ export function Navigation() {
 
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          scrolled ? "bg-bone/95 backdrop-blur-sm border-b border-border/60" : "bg-transparent"
+          "fixed top-0 left-0 right-0 transition-all duration-300",
+          elevatedZIndex ? "z-[110]" : "z-50",
+          scrolled || elevatedZIndex
+            ? "bg-bone/95 backdrop-blur-sm border-b border-border/60"
+            : "bg-transparent"
         )}
       >
         <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Primary">

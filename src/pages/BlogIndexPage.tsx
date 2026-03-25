@@ -43,15 +43,15 @@ export function ResourcesIndexPage() {
             </p>
             <p className="mt-4 text-base text-slate max-w-2xl font-body not-italic leading-relaxed">
               Prefer a walkthrough of the product? Explore the{" "}
-              <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              <Link to="/#product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                 SPCC compliance platform
               </Link>
               , see{" "}
-              <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              <Link to="/#pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                 pricing
               </Link>
               , or{" "}
-              <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              <Link to="/#book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                 book a demo
               </Link>
               .

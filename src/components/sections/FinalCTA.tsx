@@ -18,10 +18,10 @@ export function FinalCTA() {
           </h2>
           <div className="mt-10 flex flex-wrap gap-4 justify-center">
             <Button variant="primary" size="lg" asChild>
-              <Link to="/book-demo">Book Demo</Link>
+              <Link to="/#book-demo">Book Demo</Link>
             </Button>
             <Button variant="secondary" size="lg" asChild>
-              <Link to="/book-demo">Start Pilot</Link>
+              <Link to="/#book-demo">Start Pilot</Link>
             </Button>
           </div>
         </motion.div>

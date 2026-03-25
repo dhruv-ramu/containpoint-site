@@ -90,7 +90,7 @@ export function ProductSection({ showHeading = true, showInternalLinks = true }:
             className="mt-14 text-center text-slate max-w-2xl mx-auto leading-relaxed"
           >
             See{" "}
-            <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+            <Link to="/#pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
               pricing
             </Link>
             , read{" "}
@@ -98,7 +98,7 @@ export function ProductSection({ showHeading = true, showInternalLinks = true }:
               SPCC resources
             </Link>
             , or{" "}
-            <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+            <Link to="/#book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
               book a demo
             </Link>
             .

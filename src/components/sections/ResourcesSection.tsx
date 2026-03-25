@@ -115,15 +115,15 @@ export function ResourcesSection() {
           </p>
           <p className="mt-3 text-base text-slate max-w-2xl leading-relaxed">
             When you are ready to operationalize this with software, see the{" "}
-            <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+            <Link to="/#product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
               SPCC compliance platform
             </Link>
             ,{" "}
-            <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+            <Link to="/#pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
               pricing
             </Link>
             , or{" "}
-            <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+            <Link to="/#book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
               book a demo
             </Link>
             .

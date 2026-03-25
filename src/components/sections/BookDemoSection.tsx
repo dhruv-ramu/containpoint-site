@@ -100,11 +100,11 @@ export function BookDemoSection({ leadHeadingLevel = "h2" }: BookDemoSectionProp
           </p>
           <p className="mt-4 text-slate text-sm leading-relaxed">
             Prefer to read first? Browse the{" "}
-            <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+            <Link to="/#product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
               SPCC compliance platform
             </Link>
             ,{" "}
-            <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+            <Link to="/#pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
               pricing
             </Link>
             , or{" "}

@@ -40,7 +40,7 @@ export function ForConsultantsSection({ heroAsH1 = false }: ForConsultantsSectio
             </p>
             <p className="mt-4 text-base text-slate leading-relaxed">
               Need{" "}
-              <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              <Link to="/#pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                 SPCC software pricing
               </Link>{" "}
               for multiple sites, or want to see{" "}
@@ -51,7 +51,7 @@ export function ForConsultantsSection({ heroAsH1 = false }: ForConsultantsSectio
                 inspection tracking and audit exports
               </Link>
               ?{" "}
-              <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              <Link to="/#book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                 Book a demo
               </Link>{" "}
               with our team.
@@ -68,7 +68,7 @@ export function ForConsultantsSection({ heroAsH1 = false }: ForConsultantsSectio
             </ul>
             <div className="mt-10">
               <Button variant="primary" size="lg" asChild>
-                <Link to="/book-demo">Request Pilot Access</Link>
+                <Link to="/#book-demo">Request Pilot Access</Link>
               </Button>
             </div>
           </motion.div>

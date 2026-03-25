@@ -38,7 +38,7 @@ export function ConsultantsPage() {
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-slate leading-relaxed">
               Supporting clients in-house? See the full{" "}
-              <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              <Link to="/#product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                 SPCC compliance platform
               </Link>{" "}
               and{" "}

@@ -298,7 +298,7 @@ export function PledgePage() {
                 The ContainPoint team
               </p>
               <Link
-                to="/book-demo"
+                to="/#book-demo"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-steel hover:text-charcoal transition-colors underline underline-offset-4 decoration-steel/40"
               >
                 Want to talk with us directly? Book a demo

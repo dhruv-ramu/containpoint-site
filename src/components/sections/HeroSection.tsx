@@ -53,7 +53,7 @@ export function HeroSection() {
               className="mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
             >
               <Button variant="primary" size="lg" className="w-full sm:w-auto min-h-12 touch-manipulation" asChild>
-                <Link to="/book-demo">Book Demo</Link>
+                <Link to="/#book-demo">Book Demo</Link>
               </Button>
               <Button variant="secondary" size="lg" className="w-full sm:w-auto min-h-12 touch-manipulation" asChild>
                 <a href="#sample-audit">Explore Sample Dashboard</a>

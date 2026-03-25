@@ -44,11 +44,11 @@ export function ProductPage() {
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-slate leading-relaxed">
               Ready to see it on your sites?{" "}
-              <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              <Link to="/#book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                 Book a demo
               </Link>
               , review{" "}
-              <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              <Link to="/#pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                 pricing
               </Link>
               , or explore{" "}

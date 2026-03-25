@@ -21,7 +21,7 @@ export function PricingPreview() {
           </p>
           <div className="mt-8">
             <Button variant="primary" size="lg" asChild>
-              <Link to="/pricing">View Pricing</Link>
+              <Link to="/#pricing">View Pricing</Link>
             </Button>
           </div>
         </motion.div>

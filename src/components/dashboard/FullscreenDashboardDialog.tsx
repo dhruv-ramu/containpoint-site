@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Navigation } from "@/components/Navigation";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { DashboardOverview } from "./tabs/DashboardOverview";
@@ -83,17 +84,19 @@ export function FullscreenDashboardDialog({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-50 flex flex-col bg-mist"
+          className="fixed inset-0 z-[100] flex flex-col bg-mist"
         >
-          <div className="flex-shrink-0">
-            <DashboardHeader
-              variant="fullscreen"
-              breadcrumb={breadcrumb}
-              onExport={() => handleTabChange("audit")}
-              onClose={onClose}
-            />
-          </div>
-          <div className="flex flex-1 min-h-0">
+          <Navigation elevatedZIndex />
+          <div className="flex flex-1 min-h-0 flex-col pt-16">
+            <div className="flex-shrink-0">
+              <DashboardHeader
+                variant="fullscreen"
+                breadcrumb={breadcrumb}
+                onExport={() => handleTabChange("audit")}
+                onClose={onClose}
+              />
+            </div>
+            <div className="flex flex-1 min-h-0">
             <aside className="hidden lg:flex w-60 border-r border-border/50 flex-shrink-0 bg-bone flex-col">
               <DashboardSidebar
                 activeTab={activeTab}
@@ -101,7 +104,7 @@ export function FullscreenDashboardDialog({
                 showConsultant={true}
               />
             </aside>
-            <div className="lg:hidden overflow-x-auto border-b border-border/50 flex gap-0 flex-shrink-0 bg-bone px-2">
+            <div className="lg:hidden overflow-x-auto border-b border-border/50 flex gap-0 flex-shrink-0 bg-bone px-1 scrollbar-hide snap-x snap-mandatory scroll-px-2">
               {[
                 "overview",
                 "assets",
@@ -109,19 +112,27 @@ export function FullscreenDashboardDialog({
                 "inspections",
                 "actions",
                 "training",
+                "exports",
                 "audit",
                 "consultant",
               ].map((tab) => (
                 <button
                   key={tab}
+                  type="button"
                   onClick={() => handleTabChange(tab)}
-                  className={`px-4 py-3 text-xs font-medium whitespace-nowrap border-b-2 transition-colors ${
+                  className={`snap-start shrink-0 px-3 py-2.5 text-[11px] sm:text-xs font-semibold whitespace-nowrap border-b-2 transition-colors min-h-11 touch-manipulation ${
                     activeTab === tab
-                      ? "border-steel text-steel"
-                      : "border-transparent text-slate hover:text-charcoal"
+                      ? "border-steel text-steel bg-mist/40"
+                      : "border-transparent text-slate hover:text-charcoal active:bg-mist/30"
                   }`}
                 >
-                  {tab === "consultant" ? "Consultant" : tab === "overview" ? "Dashboard" : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  {tab === "consultant"
+                    ? "Consultant"
+                    : tab === "overview"
+                      ? "Dashboard"
+                      : tab === "exports"
+                        ? "Exports"
+                        : tab.charAt(0).toUpperCase() + tab.slice(1)}
                 </button>
               ))}
             </div>
@@ -143,6 +154,7 @@ export function FullscreenDashboardDialog({
                 </motion.div>
               </AnimatePresence>
             </main>
+          </div>
           </div>
         </motion.div>
       )}
