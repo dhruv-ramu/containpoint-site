@@ -31,7 +31,7 @@ export function ResourcesIndexPage() {
       <Navigation />
       <main className="pt-16">
         <div className="border-b border-border/50 bg-mist/20">
-          <div className="mx-auto max-w-3xl px-6 lg:px-8 py-12 lg:py-16">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-steel mb-3 font-heading">
               ContainPoint
             </p>
@@ -59,7 +59,7 @@ export function ResourcesIndexPage() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-3xl px-6 lg:px-8 py-16 lg:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
           <ul className="space-y-0 divide-y divide-border/60 border-y border-border/60">
             {ARTICLES.map((article, i) => (
               <li key={article.slug}>

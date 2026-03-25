@@ -30,7 +30,7 @@ export function ArticlePage() {
           noindex
         />
         <LegalPageShell backTo={{ to: "/resources", label: "All resources" }}>
-          <div className="mx-auto max-w-3xl px-6 lg:px-8 pb-24 pt-12 lg:pt-16 font-heading text-charcoal">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pb-24 pt-12 lg:pt-16 font-heading text-charcoal">
             <h1 className="text-3xl font-semibold tracking-tight">Article not found</h1>
             <p className="mt-4 text-slate font-body not-italic">
               That article does not exist or the link is incorrect.
@@ -68,7 +68,7 @@ export function ArticlePage() {
         })}
       />
       <LegalPageShell backTo={{ to: "/resources", label: "All resources" }}>
-        <article className="mx-auto max-w-3xl px-6 lg:px-8 pb-24 pt-12 lg:pt-16 font-heading text-charcoal">
+        <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pb-24 pt-12 lg:pt-16 font-heading text-charcoal">
           <header className="mb-14 pb-10 border-b border-border/70">
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-steel mb-3">Resource</p>
             <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-charcoal mb-6">
@@ -111,7 +111,7 @@ export function ArticlePage() {
               <h2 className="font-heading text-lg font-semibold text-charcoal mb-3">Next steps</h2>
               <p className="text-slate leading-relaxed">
                 ContainPoint helps teams run{" "}
-                <Link to="/product#how-it-works" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+                <Link to="/#product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
                   inspection tracking
                 </Link>
                 , maintain{" "}

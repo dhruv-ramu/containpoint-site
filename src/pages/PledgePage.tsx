@@ -35,7 +35,7 @@ export function PledgePage() {
         {/* Hero */}
         <header className="relative overflow-hidden border-b border-border/40 bg-gradient-to-b from-mist/80 via-bone to-bone">
           <div className="pointer-events-none absolute inset-0 opacity-[0.35] pledge-hero-dots" aria-hidden />
-          <div className="relative mx-auto max-w-4xl px-6 lg:px-8 pt-14 pb-16 lg:pt-20 lg:pb-24 text-center">
+          <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-12 pb-14 sm:pt-14 sm:pb-16 lg:pt-20 lg:pb-24 text-center">
             <motion.div {...fadeUp} transition={{ duration: 0.5 }}>
               <p className="text-sm font-medium tracking-[0.25em] uppercase text-steel font-heading mb-4">
                 ContainPoint
@@ -70,7 +70,7 @@ export function PledgePage() {
           </div>
         </header>
 
-        <div className="mx-auto max-w-6xl px-6 lg:px-8 py-16 lg:py-24 space-y-20 lg:space-y-28">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16 lg:py-24 space-y-16 sm:space-y-20 lg:space-y-28">
           {/* Letter-style intro */}
           <motion.section {...fadeUp} transition={{ duration: 0.5 }} className="relative">
             <div className="absolute -left-2 top-0 bottom-0 w-1 rounded-full bg-gradient-to-b from-steel/50 via-steel/25 to-transparent hidden sm:block" />

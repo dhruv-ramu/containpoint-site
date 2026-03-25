@@ -15,7 +15,7 @@ export function BookDemoPage() {
       <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       <MarketingPageLayout>
         <div className="bg-mist/30 border-b border-border/50">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8 py-6">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
             <p className="text-sm text-slate">
               <Link to="/" className="text-steel hover:text-charcoal underline underline-offset-2">
                 Home

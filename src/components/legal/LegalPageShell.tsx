@@ -22,7 +22,7 @@ export function LegalPageShell({ children, backTo }: Props) {
       <Navigation />
       <main className="flex-1 pt-16">
         <div className="border-b border-border/50 bg-mist/20">
-          <div className="mx-auto max-w-3xl px-6 lg:px-8 py-6">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-6">
             <Link
               to={back.to}
               className="inline-flex items-center gap-2 text-sm font-medium text-slate hover:text-steel transition-colors"

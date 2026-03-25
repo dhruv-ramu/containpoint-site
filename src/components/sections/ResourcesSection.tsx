@@ -91,8 +91,8 @@ export function ResourcesSection() {
   const showControls = positionCount > 1;
 
   return (
-    <section id="resources" className="py-20 lg:py-28 bg-mist/50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="resources" className="py-16 sm:py-20 lg:py-28 bg-mist/50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -193,14 +193,40 @@ export function ResourcesSection() {
 
           {showControls && (
             <>
+              {/* Mobile / tablet: large tap targets below track (avoids overlapping cards) */}
+              <div className="mt-5 flex justify-center gap-10 lg:hidden">
+                <button
+                  type="button"
+                  onClick={goPrev}
+                  aria-label="Previous resources"
+                  className={cn(
+                    "min-h-12 min-w-12 rounded-full border border-border/70 bg-bone shadow-sm",
+                    "inline-flex items-center justify-center text-charcoal hover:bg-mist hover:border-steel/30 transition-colors touch-manipulation"
+                  )}
+                >
+                  <ChevronLeft className="h-6 w-6" aria-hidden />
+                </button>
+                <button
+                  type="button"
+                  onClick={goNext}
+                  aria-label="Next resources"
+                  className={cn(
+                    "min-h-12 min-w-12 rounded-full border border-border/70 bg-bone shadow-sm",
+                    "inline-flex items-center justify-center text-charcoal hover:bg-mist hover:border-steel/30 transition-colors touch-manipulation"
+                  )}
+                >
+                  <ChevronRight className="h-6 w-6" aria-hidden />
+                </button>
+              </div>
+              {/* Desktop: side controls */}
               <button
                 type="button"
                 onClick={goPrev}
                 aria-label="Previous resources"
                 className={cn(
-                  "absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 sm:-translate-x-3 z-10",
-                  "h-10 w-10 rounded-full border border-border/70 bg-bone/95 shadow-sm",
-                  "flex items-center justify-center text-charcoal hover:bg-mist hover:border-steel/30 transition-colors"
+                  "hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 z-10",
+                  "h-11 w-11 rounded-full border border-border/70 bg-bone/95 shadow-sm",
+                  "items-center justify-center text-charcoal hover:bg-mist hover:border-steel/30 transition-colors touch-manipulation"
                 )}
               >
                 <ChevronLeft className="h-5 w-5" aria-hidden />
@@ -210,9 +236,9 @@ export function ResourcesSection() {
                 onClick={goNext}
                 aria-label="Next resources"
                 className={cn(
-                  "absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 sm:translate-x-3 z-10",
-                  "h-10 w-10 rounded-full border border-border/70 bg-bone/95 shadow-sm",
-                  "flex items-center justify-center text-charcoal hover:bg-mist hover:border-steel/30 transition-colors"
+                  "hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 z-10",
+                  "h-11 w-11 rounded-full border border-border/70 bg-bone/95 shadow-sm",
+                  "items-center justify-center text-charcoal hover:bg-mist hover:border-steel/30 transition-colors touch-manipulation"
                 )}
               >
                 <ChevronRight className="h-5 w-5" aria-hidden />
@@ -221,7 +247,11 @@ export function ResourcesSection() {
           )}
 
           {showControls && (
-            <div className="flex justify-center gap-2 mt-8 flex-wrap" role="group" aria-label="Resource slides">
+            <div
+              className="flex justify-center gap-2.5 mt-6 lg:mt-8 flex-wrap px-2"
+              role="group"
+              aria-label="Resource slides"
+            >
               {Array.from({ length: positionCount }, (_, i) => (
                 <button
                   key={i}
@@ -229,11 +259,16 @@ export function ResourcesSection() {
                   aria-label={`Go to slide ${i + 1} of ${positionCount}`}
                   aria-current={i === index ? "true" : undefined}
                   onClick={() => setIndex(i)}
-                  className={cn(
-                    "h-2 rounded-full transition-all duration-300",
-                    i === index ? "w-8 bg-steel" : "w-2 bg-border hover:bg-steel/40"
-                  )}
-                />
+                  className="min-h-11 min-w-11 inline-flex items-center justify-center touch-manipulation"
+                >
+                  <span
+                    className={cn(
+                      "h-2 rounded-full transition-all duration-300",
+                      i === index ? "w-8 bg-steel" : "w-2 bg-border hover:bg-steel/40"
+                    )}
+                    aria-hidden
+                  />
+                </button>
               ))}
             </div>
           )}

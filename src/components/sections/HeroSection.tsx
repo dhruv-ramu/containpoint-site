@@ -18,9 +18,9 @@ function DashboardFallback() {
 
 export function HeroSection() {
   return (
-    <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    <section className="relative pt-24 pb-16 sm:pb-20 lg:pt-32 lg:pb-32 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           <div>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -50,12 +50,12 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-10 flex flex-wrap gap-4"
+              className="mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
             >
-              <Button variant="primary" size="lg" asChild>
+              <Button variant="primary" size="lg" className="w-full sm:w-auto min-h-12 touch-manipulation" asChild>
                 <Link to="/book-demo">Book Demo</Link>
               </Button>
-              <Button variant="secondary" size="lg" asChild>
+              <Button variant="secondary" size="lg" className="w-full sm:w-auto min-h-12 touch-manipulation" asChild>
                 <a href="#sample-audit">Explore Sample Dashboard</a>
               </Button>
             </motion.div>

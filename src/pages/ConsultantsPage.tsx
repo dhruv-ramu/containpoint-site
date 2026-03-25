@@ -21,7 +21,7 @@ export function ConsultantsPage() {
       />
       <MarketingPageLayout>
         <div className="bg-mist/30 border-b border-border/50">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8 pt-8 pb-0">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-0">
             <p className="text-sm text-slate">
               <Link to="/" className="text-steel hover:text-charcoal underline underline-offset-2">
                 Home
@@ -35,7 +35,7 @@ export function ConsultantsPage() {
         </div>
         <ForConsultantsSection heroAsH1 />
         <section className="py-12 lg:py-16 border-t border-border/40 bg-bone">
-          <div className="mx-auto max-w-3xl px-6 lg:px-8 text-center">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-slate leading-relaxed">
               Supporting clients in-house? See the full{" "}
               <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">

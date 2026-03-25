@@ -45,7 +45,7 @@ export function ForConsultantsSection({ heroAsH1 = false }: ForConsultantsSectio
               </Link>{" "}
               for multiple sites, or want to see{" "}
               <Link
-                to="/product#how-it-works"
+                to="/#product"
                 className="text-steel font-medium hover:text-charcoal underline underline-offset-2"
               >
                 inspection tracking and audit exports

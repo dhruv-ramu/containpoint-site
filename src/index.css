@@ -30,6 +30,11 @@ body {
   color: var(--color-charcoal);
 }
 
+/* Faster taps on mobile (avoids double-tap zoom delay on controls) */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
 .font-heading {
   font-family: var(--font-heading);
 }

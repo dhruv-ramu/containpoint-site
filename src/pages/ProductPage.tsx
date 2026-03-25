@@ -26,7 +26,7 @@ export function ProductPage() {
       />
       <MarketingPageLayout>
         <div className="bg-mist/50 border-b border-border/50">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12 lg:py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
             <p className="text-sm font-medium text-steel uppercase tracking-[0.15em] font-heading mb-3">
               ContainPoint
             </p>
@@ -41,7 +41,7 @@ export function ProductPage() {
         <ProductSection showHeading={false} showInternalLinks={false} />
         <HowItWorksSection />
         <section className="py-12 lg:py-16 border-t border-border/40 bg-bone">
-          <div className="mx-auto max-w-3xl px-6 lg:px-8 text-center">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-slate leading-relaxed">
               Ready to see it on your sites?{" "}
               <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">

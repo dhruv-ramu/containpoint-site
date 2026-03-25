@@ -31,8 +31,8 @@ type PricingSectionProps = {
 
 export function PricingSection({ showHeading = true }: PricingSectionProps) {
   return (
-    <section id="pricing" className="py-20 lg:py-28 bg-mist/50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="pricing" className="py-16 sm:py-20 lg:py-28 bg-mist/50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {showHeading && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

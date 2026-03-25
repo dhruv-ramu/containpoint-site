@@ -8,9 +8,9 @@ const footerNavLinkClass = "text-slate hover:text-charcoal transition-colors";
 export function Footer() {
   return (
     <footer className="py-16 lg:py-20 border-t border-border/60 bg-mist/30">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid lg:grid-cols-4 gap-12">
-          <div className="lg:col-span-2">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4 lg:gap-12">
+          <div className="sm:col-span-2 lg:col-span-2">
             <Link to="/" className="font-heading text-2xl font-semibold tracking-tight text-charcoal hover:text-steel transition-colors">
               ContainPoint
             </Link>
@@ -32,7 +32,7 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link to="/book-demo" className={footerNavLinkClass}>
+                <Link to="/#book-demo" className={footerNavLinkClass}>
                   Book Demo
                 </Link>
               </li>

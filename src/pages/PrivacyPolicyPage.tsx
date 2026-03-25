@@ -16,7 +16,7 @@ export function PrivacyPolicyPage() {
       />
       <JsonLd data={organizationJsonLd()} />
       <LegalPageShell>
-      <article className="mx-auto max-w-3xl px-6 lg:px-8 pb-24 pt-12 lg:pt-16 font-heading text-charcoal">
+      <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pb-24 pt-12 lg:pt-16 font-heading text-charcoal">
 
         <header className="mb-14 pb-10 border-b border-border/70">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-steel mb-3">Legal</p>
