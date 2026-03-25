@@ -125,6 +125,73 @@ export const ARTICLES: Article[] = [
     ],
   },
   {
+    slug: "environmental-outcomes-execution",
+    title: "Why environmental outcomes depend on execution",
+    metaTitle: "SPCC and Environmental Sustainability — Why Execution Matters",
+    metaDescription:
+      "Environmental outcomes at facilities depend on execution. Learn how SPCC compliance, inspections, and operational discipline reduce real-world risk.",
+    description:
+      "How day-to-day SPCC execution, not just policy or intent, drives real environmental outcomes at regulated facilities.",
+    publishedAt: "2026-03-24",
+    sections: [
+      {
+        heading: "Environmental impact is operational",
+        paragraphs: [
+          "Environmental sustainability is often discussed in terms of long-term goals and commitments. At the facility level, the reality is more immediate. Environmental outcomes are shaped by how consistently day-to-day operations are executed.",
+          "For facilities storing oil, SPCC regulations define how spills are prevented, how equipment is maintained, and how records are kept. These are not abstract requirements. They are operational processes that must be carried out continuously.",
+        ],
+      },
+      {
+        heading: "The gap between policy and execution",
+        paragraphs: [
+          "Most facilities understand what is required. Inspections must be performed. Equipment must be maintained. Records must be kept. The challenge is not knowledge. It is consistency.",
+          "Inspections are missed. Corrective actions are not followed through. Documentation becomes fragmented across spreadsheets, emails, and files. Over time, small gaps accumulate and create real risk.",
+        ],
+      },
+      {
+        heading: "Where sustainability breaks down",
+        paragraphs: [
+          "When compliance is treated as a periodic task instead of an operational system, preventable failures become more likely. A missed inspection can allow a leak to go unnoticed. A delayed repair can allow that leak to worsen.",
+          "These failures are not edge cases. They are the most common way environmental harm occurs in regulated facilities.",
+        ],
+      },
+      {
+        heading: "SPCC as operational discipline",
+        paragraphs: [
+          "SPCC provides a framework for running facilities with discipline. It requires clear responsibilities, regular inspections, documented follow-through, and trained personnel.",
+          "When these processes are executed consistently, they reduce both operational risk and environmental impact.",
+        ],
+      },
+      {
+        heading: "Systems matter more than reminders",
+        paragraphs: [
+          "Many facilities still rely on spreadsheets, email reminders, and paper checklists. These tools can work at small scale but are difficult to maintain as operations grow.",
+          "A structured system changes this. Inspections are tracked. corrective actions are assigned and verified. records reflect actual conditions instead of reconstructed timelines.",
+        ],
+      },
+      {
+        heading: "Sustainability as a byproduct of consistency",
+        paragraphs: [
+          "There is a tendency to separate sustainability from compliance. In practice, they are closely linked.",
+          "Consistent execution of compliance workflows leads to fewer preventable releases, clearer accountability, and better visibility into risk. These outcomes form the foundation of environmental sustainability at the facility level.",
+        ],
+      },
+      {
+        heading: "A more practical view",
+        paragraphs: [
+          "Improving environmental outcomes does not always require new commitments. In many cases, it requires doing the existing work reliably.",
+          "SPCC defines what needs to happen. The real challenge is ensuring that it actually happens, every time.",
+        ],
+      },
+    ],
+    keyTakeaways: [
+      "Environmental outcomes depend on consistent execution, not just policy or intent.",
+      "SPCC is an operational framework for preventing real-world incidents.",
+      "Most compliance failures come from breakdowns in execution, not understanding.",
+      "Structured systems improve both compliance and environmental outcomes.",
+    ],
+  },
+  {
     slug: "inspection-requirements",
     title: "SPCC inspection requirements",
     metaTitle: "SPCC Inspection Requirements — Field Records That Hold Up",
