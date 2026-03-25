@@ -46,3 +46,9 @@ body {
   display: none;
 }
 
+/* Pledge hero subtle grid texture */
+.pledge-hero-dots {
+  background-image: radial-gradient(circle at 1px 1px, var(--color-border) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+

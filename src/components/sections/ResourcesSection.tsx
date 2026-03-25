@@ -7,15 +7,39 @@ import { ARTICLES } from "@/data/articles";
 import { cn } from "@/lib/utils";
 
 const AUTOPLAY_MS = 6500;
+/** Tailwind gap-4 — must match `className="gap-4"` on the track */
+const GAP_PX = 16;
 
 export function ResourcesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [slidesPerView, setSlidesPerView] = useState(1);
   const [index, setIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [paused, setPaused] = useState(false);
 
   const count = ARTICLES.length;
+  /** When there are fewer articles than columns, only use as many columns as items. */
+  const effectivePerView = Math.min(slidesPerView, Math.max(1, count));
+  const maxIndex = Math.max(0, count - effectivePerView);
+  const positionCount = maxIndex + 1;
+
+  useEffect(() => {
+    const mqLg = window.matchMedia("(min-width: 1024px)");
+    const mqSm = window.matchMedia("(min-width: 640px)");
+    const update = () => {
+      if (mqLg.matches) setSlidesPerView(3);
+      else if (mqSm.matches) setSlidesPerView(2);
+      else setSlidesPerView(1);
+    };
+    update();
+    mqLg.addEventListener("change", update);
+    mqSm.addEventListener("change", update);
+    return () => {
+      mqLg.removeEventListener("change", update);
+      mqSm.removeEventListener("change", update);
+    };
+  }, []);
 
   useLayoutEffect(() => {
     const el = containerRef.current;
@@ -28,6 +52,10 @@ export function ResourcesSection() {
   }, []);
 
   useEffect(() => {
+    setIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
+  useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mq.matches);
     const handler = () => setReducedMotion(mq.matches);
@@ -35,21 +63,32 @@ export function ResourcesSection() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
+  const slideWidth =
+    containerWidth > 0 && effectivePerView > 0
+      ? (containerWidth - (effectivePerView - 1) * GAP_PX) / effectivePerView
+      : 0;
+
+  const stepPx = slideWidth > 0 ? slideWidth + GAP_PX : 0;
+  const trackWidth =
+    slideWidth > 0 ? count * slideWidth + Math.max(0, count - 1) * GAP_PX : 0;
+
   const goPrev = useCallback(() => {
-    setIndex((i) => (i - 1 + count) % count);
-  }, [count]);
+    setIndex((i) => (i - 1 + positionCount) % positionCount);
+  }, [positionCount]);
 
   const goNext = useCallback(() => {
-    setIndex((i) => (i + 1) % count);
-  }, [count]);
+    setIndex((i) => (i + 1) % positionCount);
+  }, [positionCount]);
 
   useEffect(() => {
-    if (reducedMotion || count <= 1 || paused) return;
+    if (reducedMotion || positionCount <= 1 || paused) return;
     const id = window.setInterval(() => {
-      setIndex((i) => (i + 1) % count);
+      setIndex((i) => (i + 1) % positionCount);
     }, AUTOPLAY_MS);
     return () => window.clearInterval(id);
-  }, [count, reducedMotion, paused]);
+  }, [positionCount, reducedMotion, paused]);
+
+  const showControls = positionCount > 1;
 
   return (
     <section id="resources" className="py-20 lg:py-28 bg-mist/50">
@@ -104,9 +143,9 @@ export function ResourcesSection() {
             className="relative overflow-hidden rounded-lg"
           >
             <motion.div
-              className="flex"
+              className="flex gap-4"
               animate={{
-                x: containerWidth > 0 ? -index * containerWidth : 0,
+                x: stepPx > 0 ? -index * stepPx : 0,
               }}
               transition={
                 reducedMotion
@@ -114,32 +153,35 @@ export function ResourcesSection() {
                   : { type: "spring", stiffness: 380, damping: 36 }
               }
               style={{
-                width: containerWidth > 0 ? containerWidth * count : "100%",
+                width: trackWidth > 0 ? trackWidth : "100%",
               }}
             >
               {ARTICLES.map((article) => (
                 <div
                   key={article.slug}
-                  className="shrink-0 px-1 sm:px-2"
+                  className="shrink-0"
                   style={{
-                    width: containerWidth > 0 ? containerWidth : "100%",
+                    width: slideWidth > 0 ? slideWidth : undefined,
+                    minWidth: slideWidth > 0 ? slideWidth : "100%",
                   }}
                 >
                   <Link
                     to={`/resources/${article.slug}`}
                     className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-steel/40 focus-visible:ring-offset-2 rounded-lg"
                   >
-                    <Card className="h-full min-h-[200px] sm:min-h-[220px] cursor-pointer group hover:border-steel/30 transition-colors border-border/60">
+                    <Card className="h-full min-h-[180px] sm:min-h-[200px] lg:min-h-[220px] cursor-pointer group hover:border-steel/30 transition-colors border-border/60">
                       <CardHeader className="pb-2">
                         <div className="w-10 h-10 rounded-sm flex items-center justify-center bg-surface/80 border border-border/60 mb-2 group-hover:bg-steel/10 group-hover:border-steel/20 transition-colors">
                           <FileText size={20} className="text-steel" />
                         </div>
-                        <CardTitle className="text-lg sm:text-xl group-hover:text-steel transition-colors leading-snug">
+                        <CardTitle className="text-base lg:text-lg group-hover:text-steel transition-colors leading-snug line-clamp-2">
                           {article.title}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="pt-0">
-                        <p className="text-sm text-slate leading-relaxed line-clamp-3 mb-4">{article.description}</p>
+                        <p className="text-sm text-slate leading-relaxed line-clamp-3 mb-3 lg:mb-4">
+                          {article.description}
+                        </p>
                         <span className="text-sm text-steel font-medium">Read article →</span>
                       </CardContent>
                     </Card>
@@ -149,12 +191,12 @@ export function ResourcesSection() {
             </motion.div>
           </div>
 
-          {count > 1 && (
+          {showControls && (
             <>
               <button
                 type="button"
                 onClick={goPrev}
-                aria-label="Previous resource"
+                aria-label="Previous resources"
                 className={cn(
                   "absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 sm:-translate-x-3 z-10",
                   "h-10 w-10 rounded-full border border-border/70 bg-bone/95 shadow-sm",
@@ -166,7 +208,7 @@ export function ResourcesSection() {
               <button
                 type="button"
                 onClick={goNext}
-                aria-label="Next resource"
+                aria-label="Next resources"
                 className={cn(
                   "absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 sm:translate-x-3 z-10",
                   "h-10 w-10 rounded-full border border-border/70 bg-bone/95 shadow-sm",
@@ -178,13 +220,13 @@ export function ResourcesSection() {
             </>
           )}
 
-          {count > 1 && (
-            <div className="flex justify-center gap-2 mt-8" role="group" aria-label="Resource slides">
-              {ARTICLES.map((article, i) => (
+          {showControls && (
+            <div className="flex justify-center gap-2 mt-8 flex-wrap" role="group" aria-label="Resource slides">
+              {Array.from({ length: positionCount }, (_, i) => (
                 <button
-                  key={article.slug}
+                  key={i}
                   type="button"
-                  aria-label={`Show resource: ${article.title}`}
+                  aria-label={`Go to slide ${i + 1} of ${positionCount}`}
                   aria-current={i === index ? "true" : undefined}
                   onClick={() => setIndex(i)}
                   className={cn(

@@ -9,6 +9,7 @@ import { ProductPage } from "@/pages/ProductPage";
 import { PricingPage } from "@/pages/PricingPage";
 import { ConsultantsPage } from "@/pages/ConsultantsPage";
 import { BookDemoPage } from "@/pages/BookDemoPage";
+import { PledgePage } from "@/pages/PledgePage";
 
 function LegacyBlogArticleRedirect() {
   const { slug } = useParams<{ slug: string }>();
@@ -29,6 +30,7 @@ function App() {
         <Route path="/resources/:slug" element={<ArticlePage />} />
         <Route path="/blog" element={<Navigate to="/resources" replace />} />
         <Route path="/blog/:slug" element={<LegacyBlogArticleRedirect />} />
+        <Route path="/pledge" element={<PledgePage />} />
         <Route path="/terms" element={<TermsOfServicePage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
