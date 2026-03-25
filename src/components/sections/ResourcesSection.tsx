@@ -19,13 +19,29 @@ export function ResourcesSection() {
             Resources
           </h2>
           <p className="mt-4 text-lg text-slate max-w-2xl">
-            Learn more about SPCC compliance and requirements.{" "}
-            <Link to="/blog" className="text-steel font-medium hover:text-charcoal transition-colors underline underline-offset-2">
-              View all articles
+            Learn more about SPCC compliance and requirements. Browse the full library on the{" "}
+            <Link to="/resources" className="text-steel font-medium hover:text-charcoal transition-colors underline underline-offset-2">
+              resources index
             </Link>
+            .
+          </p>
+          <p className="mt-3 text-base text-slate max-w-2xl leading-relaxed">
+            When you are ready to operationalize this with software, see the{" "}
+            <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              SPCC compliance platform
+            </Link>
+            ,{" "}
+            <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              pricing
+            </Link>
+            , or{" "}
+            <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              book a demo
+            </Link>
+            .
           </p>
         </motion.div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {ARTICLES.map((article, i) => (
             <motion.div
               key={article.slug}
@@ -34,7 +50,7 @@ export function ResourcesSection() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
             >
-              <Link to={`/blog/${article.slug}`} className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-steel/40 focus-visible:ring-offset-2 rounded-lg">
+              <Link to={`/resources/${article.slug}`} className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-steel/40 focus-visible:ring-offset-2 rounded-lg">
                 <Card className="h-full cursor-pointer group hover:border-steel/30 transition-colors">
                   <CardHeader>
                     <div className="w-10 h-10 rounded-sm flex items-center justify-center bg-surface/80 border border-border/60 mb-2 group-hover:bg-steel/10 group-hover:border-steel/20 transition-colors">

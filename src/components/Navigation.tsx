@@ -4,14 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-
-const NAV_LINKS = [
-  { href: "#product", label: "Product" },
-  { href: "#how-it-works", label: "How It Works" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#for-consultants", label: "For Consultants" },
-  { href: "#resources", label: "Resources" },
-];
+import { MAIN_NAV } from "@/config/nav";
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -41,18 +34,18 @@ export function Navigation() {
 
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-10">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
+            {MAIN_NAV.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
                 className="text-sm font-medium text-slate hover:text-charcoal transition-colors"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <a href="#book-demo">
+            <Link to="/book-demo">
               <Button variant="primary" size="sm">Book Demo</Button>
-            </a>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -77,19 +70,19 @@ export function Navigation() {
             className="lg:hidden overflow-hidden border-t border-border/60 bg-bone"
           >
             <div className="px-6 py-6 space-y-4">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
+              {MAIN_NAV.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
                   onClick={() => setMobileOpen(false)}
                   className="block py-2 text-slate hover:text-charcoal font-medium"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
-              <a href="#book-demo" onClick={() => setMobileOpen(false)} className="block mt-4">
+              <Link to="/book-demo" onClick={() => setMobileOpen(false)} className="block mt-4">
                 <Button variant="primary" className="w-full">Book Demo</Button>
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}

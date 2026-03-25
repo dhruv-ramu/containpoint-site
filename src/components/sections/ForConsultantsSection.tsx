@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 import { LayoutDashboard, FileType, Eye, Download, Zap } from "lucide-react";
 
@@ -10,7 +11,15 @@ const FEATURES = [
   { icon: Zap, text: "Faster, more professional delivery" },
 ];
 
-export function ForConsultantsSection() {
+type ForConsultantsSectionProps = {
+  /** Use on the dedicated consultants page so the page has a single H1. */
+  heroAsH1?: boolean;
+};
+
+export function ForConsultantsSection({ heroAsH1 = false }: ForConsultantsSectionProps) {
+  const titleClass =
+    "font-heading text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight";
+
   return (
     <section id="for-consultants" className="py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -21,11 +30,31 @@ export function ForConsultantsSection() {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight">
-              Manage every client site in one system.
-            </h2>
+            {heroAsH1 ? (
+              <h1 className={titleClass}>Manage every client site in one system.</h1>
+            ) : (
+              <h2 className={titleClass}>Manage every client site in one system.</h2>
+            )}
             <p className="mt-6 text-lg text-slate leading-relaxed">
               ContainPoint gives environmental consultants a structured way to standardize inspections, track deficiencies, and deliver clean audit-ready documentation across multiple facilities.
+            </p>
+            <p className="mt-4 text-base text-slate leading-relaxed">
+              Need{" "}
+              <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+                SPCC software pricing
+              </Link>{" "}
+              for multiple sites, or want to see{" "}
+              <Link
+                to="/product#how-it-works"
+                className="text-steel font-medium hover:text-charcoal underline underline-offset-2"
+              >
+                inspection tracking and audit exports
+              </Link>
+              ?{" "}
+              <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+                Book a demo
+              </Link>{" "}
+              with our team.
             </p>
             <ul className="mt-10 space-y-4">
               {FEATURES.map((f, i) => (
@@ -39,7 +68,7 @@ export function ForConsultantsSection() {
             </ul>
             <div className="mt-10">
               <Button variant="primary" size="lg" asChild>
-                <a href="#book-demo">Request Pilot Access</a>
+                <Link to="/book-demo">Request Pilot Access</Link>
               </Button>
             </div>
           </motion.div>

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 import { Check } from "lucide-react";
 
@@ -24,24 +25,30 @@ const ENTERPRISE_FEATURES = [
   "Dedicated support",
 ];
 
-export function PricingSection() {
+type PricingSectionProps = {
+  showHeading?: boolean;
+};
+
+export function PricingSection({ showHeading = true }: PricingSectionProps) {
   return (
     <section id="pricing" className="py-20 lg:py-28 bg-mist/50">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight">
-            Pricing
-          </h2>
-          <p className="mt-4 text-lg text-slate max-w-2xl">
-            Transparent, site-based pricing. No surprises.
-          </p>
-        </motion.div>
+        {showHeading && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight">
+              Pricing
+            </h2>
+            <p className="mt-4 text-lg text-slate max-w-2xl">
+              Transparent, site-based pricing. No surprises.
+            </p>
+          </motion.div>
+        )}
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Core */}
           <motion.div
@@ -68,7 +75,7 @@ export function PricingSection() {
               ))}
             </ul>
             <Button variant="secondary" className="w-full mt-8" asChild>
-              <a href="#book-demo">Get Started</a>
+              <Link to="/book-demo">Get Started</Link>
             </Button>
           </motion.div>
 
@@ -100,7 +107,7 @@ export function PricingSection() {
               ))}
             </ul>
             <Button variant="primary" className="w-full mt-8" asChild>
-              <a href="#book-demo">Get Started</a>
+              <Link to="/book-demo">Get Started</Link>
             </Button>
           </motion.div>
 
@@ -128,7 +135,7 @@ export function PricingSection() {
               ))}
             </ul>
             <Button variant="outline" className="w-full mt-8" asChild>
-              <a href="#book-demo">Contact Sales</a>
+              <Link to="/book-demo">Contact Sales</Link>
             </Button>
           </motion.div>
         </div>
@@ -138,7 +145,15 @@ export function PricingSection() {
           viewport={{ once: true }}
           className="mt-10 text-center text-sm text-slate max-w-xl mx-auto"
         >
-          Onboarding/setup fees may apply. Annual billing preferred. Consultant/portfolio pricing available.
+          Onboarding/setup fees may apply. Annual billing preferred. Consultant/portfolio pricing available.{" "}
+          <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+            Explore the SPCC compliance platform
+          </Link>{" "}
+          or{" "}
+          <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+            book a demo
+          </Link>
+          .
         </motion.p>
       </div>
     </section>

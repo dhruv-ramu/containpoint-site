@@ -1,12 +1,21 @@
 // See original structure here: :contentReference[oaicite:0]{index=0}
 
 import { LegalPageShell } from "@/components/legal/LegalPageShell";
+import { Seo, JsonLd } from "@/components/seo/Seo";
 import { LEGAL_EFFECTIVE_DATE, LEGAL_LAST_UPDATED } from "@/legal/constants";
 import { Link } from "react-router-dom";
+import { organizationJsonLd } from "@/seo/structuredData";
 
 export function PrivacyPolicyPage() {
   return (
-    <LegalPageShell>
+    <>
+      <Seo
+        title="Privacy Policy"
+        description="How ContainPoint collects, uses, and protects information in connection with its SPCC compliance platform."
+        canonicalPath="/privacy"
+      />
+      <JsonLd data={organizationJsonLd()} />
+      <LegalPageShell>
       <article className="mx-auto max-w-3xl px-6 lg:px-8 pb-24 pt-12 lg:pt-16 font-heading text-charcoal">
 
         <header className="mb-14 pb-10 border-b border-border/70">
@@ -198,5 +207,6 @@ export function PrivacyPolicyPage() {
         </div>
       </article>
     </LegalPageShell>
+    </>
   );
 }

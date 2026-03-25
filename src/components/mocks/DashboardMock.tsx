@@ -91,6 +91,8 @@ export function DashboardMock() {
 
   return (
     <motion.div
+      role="img"
+      aria-label="Sample ContainPoint dashboard: SPCC asset status, inspections, corrective actions, and training overview"
       className="relative rounded-sm border border-border/70 bg-mist/80 shadow-[0_4px_24px_rgba(23,23,23,0.06)] overflow-hidden group w-full min-w-[320px] max-w-[420px]"
       whileHover={{ boxShadow: "0 12px 40px rgba(23,23,23,0.1)" }}
       transition={{ duration: 0.2 }}

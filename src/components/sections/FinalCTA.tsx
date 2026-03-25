@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 
 export function FinalCTA() {
@@ -17,10 +18,10 @@ export function FinalCTA() {
           </h2>
           <div className="mt-10 flex flex-wrap gap-4 justify-center">
             <Button variant="primary" size="lg" asChild>
-              <a href="#book-demo">Book Demo</a>
+              <Link to="/book-demo">Book Demo</Link>
             </Button>
             <Button variant="secondary" size="lg" asChild>
-              <a href="#book-demo">Start Pilot</a>
+              <Link to="/book-demo">Start Pilot</Link>
             </Button>
           </div>
         </motion.div>

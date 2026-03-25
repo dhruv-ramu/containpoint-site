@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 
 const INDUSTRIES = ["Trucking", "Manufacturing", "Agriculture", "Data center", "Equipment/Construction", "Consulting", "Other"];
@@ -11,7 +12,12 @@ const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_FORM_ID
   ? `https://formspree.io/f/${import.meta.env.VITE_FORMSPREE_FORM_ID}`
   : null;
 
-export function BookDemoSection() {
+type BookDemoSectionProps = {
+  /** Set to "h1" on the dedicated /book-demo page for a single page-level heading. */
+  leadHeadingLevel?: "h1" | "h2";
+};
+
+export function BookDemoSection({ leadHeadingLevel = "h2" }: BookDemoSectionProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -80,11 +86,32 @@ export function BookDemoSection() {
           transition={{ duration: 0.5 }}
           className="max-w-2xl mx-auto"
         >
-          <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight">
-            See how ContainPoint works for your facilities.
-          </h2>
+          {leadHeadingLevel === "h1" ? (
+            <h1 className="font-heading text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight">
+              See how ContainPoint works for your facilities.
+            </h1>
+          ) : (
+            <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight">
+              See how ContainPoint works for your facilities.
+            </h2>
+          )}
           <p className="mt-4 text-slate">
             Book a short demo to see inspection workflows, corrective action tracking, and an example audit pack.
+          </p>
+          <p className="mt-4 text-slate text-sm leading-relaxed">
+            Prefer to read first? Browse the{" "}
+            <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              SPCC compliance platform
+            </Link>
+            ,{" "}
+            <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              pricing
+            </Link>
+            , or{" "}
+            <Link to="/resources" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              SPCC resources
+            </Link>
+            .
           </p>
           <form onSubmit={handleSubmit} className="mt-10 space-y-6">
             <input type="hidden" name="_subject" value="ContainPoint — Demo Request" />

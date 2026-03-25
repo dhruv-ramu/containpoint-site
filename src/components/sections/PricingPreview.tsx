@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 
 export function PricingPreview() {
@@ -20,7 +21,7 @@ export function PricingPreview() {
           </p>
           <div className="mt-8">
             <Button variant="primary" size="lg" asChild>
-              <a href="#pricing">View Pricing</a>
+              <Link to="/pricing">View Pricing</Link>
             </Button>
           </div>
         </motion.div>

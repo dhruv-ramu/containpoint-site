@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 import { Building2, FileCheck, Zap } from "lucide-react";
 
@@ -36,7 +37,7 @@ export function ConsultantCallout() {
           </div>
           <div className="mt-12">
             <Button variant="outline" size="lg" asChild>
-              <a href="#for-consultants">View Consultant Features</a>
+              <Link to="/for-consultants">View Consultant Features</Link>
             </Button>
           </div>
         </motion.div>

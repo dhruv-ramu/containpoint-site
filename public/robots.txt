@@ -1,0 +1,5 @@
+# https://containpoint.com
+User-agent: *
+Allow: /
+
+Sitemap: https://containpoint.com/sitemap.xml

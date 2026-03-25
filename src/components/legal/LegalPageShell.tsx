@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/sections/Footer";
@@ -12,9 +12,10 @@ type Props = {
 
 export function LegalPageShell({ children, backTo }: Props) {
   const back = backTo ?? { to: "/", label: "Back to home" };
+  const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [pathname]);
 
   return (
     <div className="min-h-screen flex flex-col">

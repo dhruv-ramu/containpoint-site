@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Database, ClipboardList, CheckSquare, GraduationCap, FileStack, Users } from "lucide-react";
 
 const MODULES = [
@@ -34,24 +35,33 @@ const MODULES = [
   },
 ];
 
-export function ProductSection() {
+type ProductSectionProps = {
+  /** When false, omit the section title block (e.g. standalone product page supplies its own H1). */
+  showHeading?: boolean;
+  /** Extra internal links below the grid (on the long home page). */
+  showInternalLinks?: boolean;
+};
+
+export function ProductSection({ showHeading = true, showInternalLinks = true }: ProductSectionProps) {
   return (
     <section id="product" className="py-20 lg:py-28 bg-mist/50">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight">
-            Product
-          </h2>
-          <p className="mt-4 text-lg text-slate max-w-2xl">
-            A complete system of record for SPCC compliance, built for facilities and consultants.
-          </p>
-        </motion.div>
+        {showHeading && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-charcoal tracking-tight">
+              Product
+            </h2>
+            <p className="mt-4 text-lg text-slate max-w-2xl">
+              A complete system of record for SPCC compliance, built for facilities and consultants.
+            </p>
+          </motion.div>
+        )}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {MODULES.map((mod, i) => (
             <motion.div
@@ -72,6 +82,28 @@ export function ProductSection() {
             </motion.div>
           ))}
         </div>
+        {showInternalLinks && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-14 text-center text-slate max-w-2xl mx-auto leading-relaxed"
+          >
+            See{" "}
+            <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              pricing
+            </Link>
+            , read{" "}
+            <Link to="/resources" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              SPCC resources
+            </Link>
+            , or{" "}
+            <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+              book a demo
+            </Link>
+            .
+          </motion.p>
+        )}
       </div>
     </section>
   );

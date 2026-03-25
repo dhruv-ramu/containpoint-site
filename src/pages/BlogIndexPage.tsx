@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/sections/Footer";
+import { Seo, JsonLd } from "@/components/seo/Seo";
 import { ARTICLES } from "@/data/articles";
 import { ArrowRight } from "lucide-react";
+import { organizationJsonLd, websiteJsonLd } from "@/seo/structuredData";
 
 function formatDate(iso: string) {
   try {
@@ -17,21 +19,42 @@ function formatDate(iso: string) {
   }
 }
 
-export function BlogIndexPage() {
+export function ResourcesIndexPage() {
   return (
     <>
+      <Seo
+        title="SPCC Compliance Resources"
+        description="Guides from ContainPoint on SPCC plans, inspection requirements, audit documentation, and organizing compliance records for oil storage facilities."
+        canonicalPath="/resources"
+      />
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       <Navigation />
       <main className="pt-16">
         <div className="border-b border-border/50 bg-mist/20">
           <div className="mx-auto max-w-3xl px-6 lg:px-8 py-12 lg:py-16">
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-steel mb-3 font-heading">
-              Resources
+              ContainPoint
             </p>
             <h1 className="font-heading text-4xl sm:text-5xl font-semibold tracking-tight text-charcoal">
-              Articles
+              SPCC compliance resources
             </h1>
-            <p className="mt-4 text-lg text-slate max-w-2xl font-body not-italic">
-              Guides and explainers on SPCC compliance. Replace this line with your own positioning copy.
+            <p className="mt-4 text-lg text-slate max-w-2xl font-body not-italic leading-relaxed">
+              Practical explainers on spill prevention compliance—plans, inspections, records, and what strong documentation looks like before your next review.
+            </p>
+            <p className="mt-4 text-base text-slate max-w-2xl font-body not-italic leading-relaxed">
+              Prefer a walkthrough of the product? Explore the{" "}
+              <Link to="/product" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+                SPCC compliance platform
+              </Link>
+              , see{" "}
+              <Link to="/pricing" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+                pricing
+              </Link>
+              , or{" "}
+              <Link to="/book-demo" className="text-steel font-medium hover:text-charcoal underline underline-offset-2">
+                book a demo
+              </Link>
+              .
             </p>
           </div>
         </div>
@@ -47,7 +70,7 @@ export function BlogIndexPage() {
                   transition={{ duration: 0.35, delay: i * 0.04 }}
                 >
                   <Link
-                    to={`/blog/${article.slug}`}
+                    to={`/resources/${article.slug}`}
                     className="group flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 py-8 first:pt-6 last:pb-6 hover:bg-mist/20 -mx-4 px-4 rounded-lg transition-colors"
                   >
                     <div className="min-w-0 flex-1">
@@ -76,3 +99,6 @@ export function BlogIndexPage() {
     </>
   );
 }
+
+/** @deprecated Use ResourcesIndexPage — kept for imports that still reference the old name. */
+export const BlogIndexPage = ResourcesIndexPage;

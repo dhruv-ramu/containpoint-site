@@ -1,14 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
-const NAV_LINKS = [
-  { href: "#product", label: "Product" },
-  { href: "#how-it-works", label: "How It Works" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#for-consultants", label: "For Consultants" },
-  { href: "#resources", label: "Resources" },
-  { href: "#book-demo", label: "Book Demo" },
-];
+import { MAIN_NAV } from "@/config/nav";
 
 export function Footer() {
   return (
@@ -27,30 +19,27 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <h4 className="text-sm font-medium text-charcoal uppercase tracking-wider mb-4">Navigation</h4>
+            <p className="text-sm font-medium text-charcoal uppercase tracking-wider mb-4">Navigation</p>
             <ul className="space-y-2">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
+              {MAIN_NAV.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
                     className="text-slate hover:text-charcoal transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li>
-                <Link
-                  to="/blog"
-                  className="text-slate hover:text-charcoal transition-colors"
-                >
-                  Articles
+                <Link to="/book-demo" className="text-slate hover:text-charcoal transition-colors">
+                  Book Demo
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-medium text-charcoal uppercase tracking-wider mb-4">Contact</h4>
+            <p className="text-sm font-medium text-charcoal uppercase tracking-wider mb-4">Contact</p>
             <ul className="space-y-3">
               <li>
                 <a

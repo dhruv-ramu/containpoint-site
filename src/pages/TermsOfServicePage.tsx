@@ -1,11 +1,20 @@
 // See original structure here: :contentReference[oaicite:0]{index=0}
 
 import { LegalPageShell } from "@/components/legal/LegalPageShell";
+import { Seo, JsonLd } from "@/components/seo/Seo";
 import { LEGAL_EFFECTIVE_DATE, LEGAL_LAST_UPDATED } from "@/legal/constants";
+import { organizationJsonLd } from "@/seo/structuredData";
 
 export function TermsOfServicePage() {
   return (
-    <LegalPageShell>
+    <>
+      <Seo
+        title="Terms of Service"
+        description="Terms of Service for ContainPoint’s SPCC compliance software—acceptable use, accounts, data, and limitations."
+        canonicalPath="/terms"
+      />
+      <JsonLd data={organizationJsonLd()} />
+      <LegalPageShell>
       <article className="mx-auto max-w-3xl px-6 lg:px-8 pb-24 pt-12 lg:pt-16 font-heading text-charcoal">
 
         <header className="mb-14 pb-10 border-b border-border/70">
@@ -213,5 +222,6 @@ export function TermsOfServicePage() {
         </div>
       </article>
     </LegalPageShell>
+    </>
   );
 }
